@@ -50,11 +50,11 @@
                     android:text="Twój wynik: 0" />
 
                 <Button
-                    android:id="@+id/buttonReset"
+                    android:id="@+id/buttonRank"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Zresetuj"
+                    android:text="Ranking"
                     tools:layout_editor_absoluteY="39dp" />
             </LinearLayout>
         </LinearLayout>
@@ -74,7 +74,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:layout_gravity="center"
-            android:inputType="numberDecimal" />
+            android:inputType="numberDecimal"
+            />
 
         <TextView
             android:id="@+id/textViewTries"
