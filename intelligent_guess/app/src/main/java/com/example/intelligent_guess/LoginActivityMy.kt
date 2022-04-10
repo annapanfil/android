@@ -46,7 +46,7 @@ class LoginActivityMy : AppCompatActivity() {
     private fun authorizeAccess(username: String){
         Toast.makeText(this,  getString(R.string.welcome) + " " + username, Toast.LENGTH_LONG).show()
         val intent = Intent(this, MainActivity::class.java)
-         intent.putExtra("username", username)
+        intent.putExtra("username", username)
         startActivity(intent)
         finish()
     }
@@ -60,6 +60,7 @@ class LoginActivityMy : AppCompatActivity() {
         val etUsername = findViewById<EditText>(R.id.et_username)
         val etPassword = findViewById<EditText>(R.id.et_password)
         val tvWarning = findViewById<TextView>(R.id.tv_warning)
+        val bRanking = findViewById<Button>(R.id.b_ranking)
 
         bLogin.setOnClickListener(){
             val username = etUsername.text.toString()
@@ -88,6 +89,11 @@ class LoginActivityMy : AppCompatActivity() {
             }
             else
                 tvWarning.text = getString(R.string.warning_fill_form)
+        }
+
+        bRanking.setOnClickListener(){
+            val intent = Intent(this, RankingActivity::class.java)
+            startActivity(intent)
         }
     }
 }

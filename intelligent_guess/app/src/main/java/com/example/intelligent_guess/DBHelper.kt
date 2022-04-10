@@ -30,14 +30,6 @@ class DBHelper(context: Context):SQLiteOpenHelper(context,DATABASE_NAME,
         onCreate(db!!)
     }
 
-    fun drop(){
-        val db= this.writableDatabase
-        val query ="DROP TABLE IF EXISTS $TABLE_NAME"
-        db.rawQuery(query, null)
-        db.close()
-    }
-
-
 
     fun insert(login: String, password: String){
         val db= this.writableDatabase
