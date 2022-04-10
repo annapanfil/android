@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import android.util.Patterns
+import android.widget.Toast
 import com.example.intelligent_guess.MainActivity
 import com.example.intelligent_guess.data.LoginRepository
 import com.example.intelligent_guess.data.Result
@@ -22,6 +23,7 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     fun login(username: String, password: String) {
         // can be launched in a separate asynchronous job
         val result = loginRepository.login(username, password)
+        Toast.makeText(loginRepository.dataSource.context, "result: $result", Toast.LENGTH_SHORT)
 
         if (result is Result.Success) {
             _loginResult.value =

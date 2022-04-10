@@ -10,4 +10,6 @@
     <string name="invalid_username">Nieprawidłowa nazwa użytkownika</string>
     <string name="invalid_password">Hasło musi mieć przynajmniej 1 znak</string>
     <string name="login_failed">"Logowanie nieudane"</string>
+    <string name="wrong_password">Błędne hasło</string>
+    <string name="login_error">Błąd logowania</string>
 </resources>
