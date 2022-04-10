@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import com.example.intelligent_guess.ui.login.LoginActivity
 
 class FullscreenActivity : AppCompatActivity() {
 
@@ -26,7 +25,7 @@ class FullscreenActivity : AppCompatActivity() {
                 Thread.sleep(3000)
             }
             runOnUiThread(){
-                val intent = Intent(this, LoginActivity::class.java)
+                val intent = Intent(this, LoginActivityMy::class.java)
                 startActivity(intent)
                 finish()
             }

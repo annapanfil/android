@@ -41,6 +41,15 @@ class DBHelper(context: Context):SQLiteOpenHelper(context,DATABASE_NAME,
         onCreate(db!!)
     }
 
+    fun drop(){
+        val db= this.writableDatabase
+        val query ="DROP TABLE IF EXISTS $TABLE_NAME"
+        val cursor =  db.rawQuery(query, null)
+        db.close()
+    }
+
+
+
     fun insert(login: String, password: String){
         val db= this.writableDatabase
         val values = ContentValues()
@@ -69,10 +78,10 @@ class DBHelper(context: Context):SQLiteOpenHelper(context,DATABASE_NAME,
         }
 
     fun search(login: String, password: String): Int{
-        val query =  "SELECT * FROM $TABLE_NAME WHERE $COL_LOGIN = $login"
+        val query =  "SELECT * FROM $TABLE_NAME WHERE $COL_LOGIN = '$login'"
         val db = this.writableDatabase
         val cursor =  db.rawQuery(query, null)
-        var ret: Int
+        var ret: Int = 0
         if(cursor.moveToFirst()){
             if(cursor.getString(cursor.getColumnIndexOrThrow(COL_PASSWORD)) == password)
                 ret = cursor.getInt(cursor.getColumnIndexOrThrow(COL_ID))
