@@ -5,9 +5,6 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import android.widget.Toast
-import com.example.intelligent_guess.DBHelper.Companion.COL_PASSWORD as COL_PASSWORD
-
 
 class DBHelper(context: Context):SQLiteOpenHelper(context,DATABASE_NAME,
     null, DATABASE_VER) {

@@ -2,17 +2,11 @@ package com.example.intelligent_guess
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Patterns
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.intelligent_guess.DBHelper
-import com.example.intelligent_guess.R
-import com.example.intelligent_guess.data.Result
-import com.example.intelligent_guess.data.model.LoggedInUser
-import java.io.IOException
 
 class LoginActivityMy : AppCompatActivity() {
     private fun fillData(){
