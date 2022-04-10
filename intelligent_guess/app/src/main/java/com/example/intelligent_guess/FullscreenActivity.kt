@@ -32,6 +32,7 @@ class FullscreenActivity : AppCompatActivity() {
         }
 
         thread.start()
+
     }
 
     companion object {

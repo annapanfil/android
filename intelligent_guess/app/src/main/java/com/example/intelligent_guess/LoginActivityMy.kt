@@ -1,5 +1,6 @@
 package com.example.intelligent_guess
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Patterns
 import android.widget.Button
@@ -28,8 +29,6 @@ class LoginActivityMy : AppCompatActivity() {
             val dbHelper = DBHelper(this)
 
             val loginResult = dbHelper.search(username, password)
-            Toast.makeText(this, "login result $loginResult", Toast.LENGTH_SHORT).show()
-
             when {
                 loginResult >= 0 -> {
                     return username
@@ -50,14 +49,12 @@ class LoginActivityMy : AppCompatActivity() {
         }
     }
 
-    fun logout() {
-        // TODO: revoke authentication
-    }
-
-    fun authorizeAccess(username: String){
+    private fun authorizeAccess(username: String){
         Toast.makeText(this,  getString(R.string.welcome) + " " + username, Toast.LENGTH_LONG).show()
-
-
+        val intent = Intent(this, MainActivity::class.java)
+         intent.putExtra("username", username)
+        startActivity(intent)
+        finish()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -66,6 +66,7 @@ class MainActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val username = intent.getStringExtra("username")
 //        supportActionBar?.hide()
 
         val MAX_TRIES = 10
