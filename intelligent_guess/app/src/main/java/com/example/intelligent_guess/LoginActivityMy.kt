@@ -14,11 +14,18 @@ import com.example.intelligent_guess.data.model.LoggedInUser
 import java.io.IOException
 
 class LoginActivityMy : AppCompatActivity() {
+    private fun fillData(){
+        val dbHelper = DBHelper(this)
+        dbHelper.insert("Shrek", "123456")
+        dbHelper.insert("Fiona", "123456789")
+        dbHelper.insert("Osioł", "12345")
+        dbHelper.insert("Kot_w_butach", "qwerty")
+    }
+
     fun login(username: String, password: String): String? {
         try{
             val tvWarning = findViewById<TextView>(R.id.tv_warning)
             val dbHelper = DBHelper(this)
-            Toast.makeText(this, "Created DB", Toast.LENGTH_SHORT).show()
 
             val loginResult = dbHelper.search(username, password)
             Toast.makeText(this, "login result $loginResult", Toast.LENGTH_SHORT).show()
@@ -48,7 +55,7 @@ class LoginActivityMy : AppCompatActivity() {
     }
 
     fun authorizeAccess(username: String){
-        Toast.makeText(this, getString(R.string.welcome) + username, Toast.LENGTH_LONG).show()
+        Toast.makeText(this,  getString(R.string.welcome) + " " + username, Toast.LENGTH_LONG).show()
 
 
     }
@@ -79,16 +86,13 @@ class LoginActivityMy : AppCompatActivity() {
             val username = etUsername.text.toString()
             val password = etPassword.text.toString()
             if (username.isNotBlank()  && password.isNotBlank()){
-                if (login(username, password) != null){
-                    try{
-                        val dbHelper = DBHelper(this)
-                        dbHelper.insert("login", "password")
-                        authorizeAccess(username)
-                    }
-                    catch (e: Throwable){
-                        val tvWarning = findViewById<TextView>(R.id.tv_warning)
-                        tvWarning.text = e.message
-                    }
+                try{
+                    val dbHelper = DBHelper(this)
+                    dbHelper.insert(username, password)
+                    authorizeAccess(username)
+                }
+                catch (e: Throwable){
+                    tvWarning.text = e.message
                 }
             }
             else

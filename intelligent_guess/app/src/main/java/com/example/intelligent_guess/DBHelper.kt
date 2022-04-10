@@ -23,17 +23,9 @@ class DBHelper(context: Context):SQLiteOpenHelper(context,DATABASE_NAME,
         private const val COL_SCORE = "Score"
     }
 
-    private fun fillData(){
-        this.insert("Shrek", "123456")
-        this.insert("Fiona", "123456789")
-        this.insert("Osioł", "12345")
-        this.insert("Kot_w_butach", "qwerty")
-    }
-
     override fun onCreate(db: SQLiteDatabase?) {
         val CREATE_TABLE_QUERY = ("CREATE TABLE $TABLE_NAME ($COL_ID INTEGER PRIMARY KEY AUTOINCREMENT, $COL_LOGIN TEXT UNIQUE, $COL_PASSWORD TEXT, $COL_SCORE INTEGER)")
         db!!.execSQL(CREATE_TABLE_QUERY)
-        fillData()
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
@@ -44,7 +36,7 @@ class DBHelper(context: Context):SQLiteOpenHelper(context,DATABASE_NAME,
     fun drop(){
         val db= this.writableDatabase
         val query ="DROP TABLE IF EXISTS $TABLE_NAME"
-        val cursor =  db.rawQuery(query, null)
+        db.rawQuery(query, null)
         db.close()
     }
 
@@ -73,6 +65,7 @@ class DBHelper(context: Context):SQLiteOpenHelper(context,DATABASE_NAME,
                     listUsers.add(user)
                 } while (cursor.moveToNext())
             }
+            cursor.close()
             db.close()
             return listUsers
         }
@@ -81,7 +74,7 @@ class DBHelper(context: Context):SQLiteOpenHelper(context,DATABASE_NAME,
         val query =  "SELECT * FROM $TABLE_NAME WHERE $COL_LOGIN = '$login'"
         val db = this.writableDatabase
         val cursor =  db.rawQuery(query, null)
-        var ret: Int = 0
+        var ret: Int
         if(cursor.moveToFirst()){
             if(cursor.getString(cursor.getColumnIndexOrThrow(COL_PASSWORD)) == password)
                 ret = cursor.getInt(cursor.getColumnIndexOrThrow(COL_ID))
@@ -90,6 +83,7 @@ class DBHelper(context: Context):SQLiteOpenHelper(context,DATABASE_NAME,
         }
         else
             ret = -2
+        cursor.close()
         db.close()
 
         return ret
