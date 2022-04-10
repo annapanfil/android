@@ -6,4 +6,125 @@
     android:layout_height="match_parent"
     tools:context=".PatientCard">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="1dp"
+        android:background="@color/OLDark"
+        >
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Imię i nazwisko"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            android:paddingTop="40sp"/>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:showDividers="middle|beginning|end"
+            android:layout_margin="40dp">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/OLOrange">
+
+                <TextView
+                    android:id="@+id/tv_header_hour"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Godzina"
+                    android:padding="10sp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/tv_header_quantity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ile"
+                    android:padding="10sp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_header_notes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Uwagi"
+                    android:padding="10sp"
+                    android:layout_weight="4"
+                    android:layout_gravity="center"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_header_given"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Podane?"
+                    android:padding="10sp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tv_hour"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="12:00"
+                    android:padding="10sp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:textColor="@color/lightText"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_quantity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2"
+                    android:padding="10sp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:textColor="@color/lightText"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_notes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="przed posiłkiem"
+                    android:padding="10sp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="4"
+                    android:textColor="@color/lightText"
+                    />
+
+                <CheckBox
+                    android:id="@+id/chb_given"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    />
+
+            </TableRow>
+
+        </TableLayout>
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
