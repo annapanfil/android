@@ -2,6 +2,7 @@ package com.example.intelligent_guess
 
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -12,6 +13,7 @@ import kotlin.random.Random
 
 
 class MainActivity : AppCompatActivity() {
+
     fun givePoints(guessCounter: Int): Int {
         when {
             guessCounter == 1 -> return 5
@@ -22,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         return 0
     }
 
-    fun showAlert(title: String, message: String){
+    private fun showAlert(title: String, message: String){
         val builder = AlertDialog.Builder(this@MainActivity)
         builder.setTitle(title)
         builder.setMessage(message)
@@ -33,19 +35,15 @@ class MainActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    fun setRecord(score: Int){
-        val sharedScore = this.getSharedPreferences("com.example.myapplication.shared",0)
-        val edit = sharedScore.edit()
-        edit.putInt("score", score)
-        edit.apply()
+    private fun setRecord(dbHelper: DBHelper, id: Int, score: Int){
+        dbHelper.setScore(id, score)
     }
 
-    fun getRecord(): Int{
-        val sharedScore = this.getSharedPreferences("com.example.myapplication.shared",0)
-        return sharedScore.getInt("score", 0)
+    private fun getRecord(dbHelper: DBHelper, id: Int): Int {
+        return dbHelper.getScore(id)
     }
 
-    fun checkText(strGuess: String): Boolean {
+    private fun checkText(strGuess: String): Boolean {
         if (strGuess.contains(".")){
             Toast.makeText(applicationContext, "$strGuess nie jest liczbą całkowitą", Toast.LENGTH_SHORT).show()
             return false
@@ -65,7 +63,7 @@ class MainActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val username = intent.getStringExtra("username")
+        val id = intent.getIntExtra("id", -1)
 //        supportActionBar?.hide()
 
         val MAX_TRIES = 10
@@ -77,11 +75,11 @@ class MainActivity : AppCompatActivity() {
 
         val textScore = findViewById<TextView>(R.id.textViewScore)
         val textTries = findViewById<TextView>(R.id.textViewTries)
-
+        val dbHelper = DBHelper(this)
 
         var secret =  Random.nextInt(0,20)
         var guessCounter = 0
-        var score = getRecord()
+        var score = getRecord(dbHelper, id)
         textScore.text = "Twój wynik: $score"
         textTries.text = "Masz jeszcze $MAX_TRIES prób"
 
@@ -100,7 +98,7 @@ class MainActivity : AppCompatActivity() {
                         showAlert("Wygrałeś", "$guess to poprawna liczba\nZgadłeś ją w $guessCounter ruchach")
 
                         score += givePoints(guessCounter)
-                        setRecord(score)
+                        setRecord(dbHelper, id, score)
                         textScore.text = "Twój wynik: $score"
 
                         guessCounter = 0
@@ -129,6 +127,11 @@ class MainActivity : AppCompatActivity() {
             guessCounter = 0
             textTries.text = "Masz jeszcze $MAX_TRIES prób"
             secret =  Random.nextInt(0,20)
+        }
+
+        buttonRank.setOnClickListener{
+            val intent = Intent(this, RankingActivity::class.java)
+            startActivity(intent)
         }
     }
 }

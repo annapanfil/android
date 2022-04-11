@@ -17,15 +17,15 @@ class LoginActivityMy : AppCompatActivity() {
         dbHelper.insert("Kot_w_butach", "qwerty")
     }
 
-    fun login(username: String, password: String): String? {
+    private fun login(username: String, password: String): Int? {
         try{
             val tvWarning = findViewById<TextView>(R.id.tv_warning)
             val dbHelper = DBHelper(this)
 
-            val loginResult = dbHelper.search(username, password)
+            val loginResult = dbHelper.login(username, password)
             when {
                 loginResult >= 0 -> {
-                    return username
+                    return loginResult
                 }
                 loginResult == -1 -> { //wrong password
                     tvWarning.text = getString(R.string.wrong_password)
@@ -43,10 +43,10 @@ class LoginActivityMy : AppCompatActivity() {
         }
     }
 
-    private fun authorizeAccess(username: String){
-        Toast.makeText(this,  getString(R.string.welcome) + " " + username, Toast.LENGTH_LONG).show()
+    private fun authorizeAccess(id: Int, username: String){
+        Toast.makeText(this,  getString(R.string.welcome) + username, Toast.LENGTH_LONG).show()
         val intent = Intent(this, MainActivity::class.java)
-        intent.putExtra("username", username)
+        intent.putExtra("id", id)
         startActivity(intent)
         finish()
     }
@@ -62,26 +62,27 @@ class LoginActivityMy : AppCompatActivity() {
         val tvWarning = findViewById<TextView>(R.id.tv_warning)
         val bRanking = findViewById<Button>(R.id.b_ranking)
 
-        bLogin.setOnClickListener(){
+        bLogin.setOnClickListener{
             val username = etUsername.text.toString()
             val password = etPassword.text.toString()
             if (username.isNotBlank()  && password.isNotBlank()){
-                   if (login(username, password) != null){
-                        authorizeAccess(username)
+                   val id = login(username, password)
+                   if (id != null){
+                        authorizeAccess(id, username)
                    }
             }
             else
                 tvWarning.text = getString(R.string.warning_fill_form)
         }
 
-        bRegister.setOnClickListener(){
+        bRegister.setOnClickListener{
             val username = etUsername.text.toString()
             val password = etPassword.text.toString()
             if (username.isNotBlank()  && password.isNotBlank()){
                 try{
                     val dbHelper = DBHelper(this)
-                    dbHelper.insert(username, password)
-                    authorizeAccess(username)
+                    val id = dbHelper.insert(username, password).toInt()
+                    authorizeAccess(id, username)
                 }
                 catch (e: Throwable){
                     tvWarning.text = e.message
@@ -91,7 +92,7 @@ class LoginActivityMy : AppCompatActivity() {
                 tvWarning.text = getString(R.string.warning_fill_form)
         }
 
-        bRanking.setOnClickListener(){
+        bRanking.setOnClickListener{
             val intent = Intent(this, RankingActivity::class.java)
             startActivity(intent)
         }
