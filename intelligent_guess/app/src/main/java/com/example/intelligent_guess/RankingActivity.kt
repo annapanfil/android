@@ -19,8 +19,11 @@ class RankingActivity : AppCompatActivity() {
         messageList.adapter = rankingAdapter
         messageList.layoutManager = LinearLayoutManager(this)
 
-        for(a in 1..10) {
-            rankingAdapter.addUser(a.toString() + "whatever")
+        val dbHelper = DBHelper(this)
+        val users: ArrayList<User> = dbHelper.getUsers(10)
+
+        for(user in users) {
+            rankingAdapter.addUser(user)
         }
     }
 }

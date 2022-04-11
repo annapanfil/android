@@ -42,17 +42,22 @@ class DBHelper(context: Context):SQLiteOpenHelper(context,DATABASE_NAME,
     }
 
 
-    @SuppressLint("Range")
-    fun select(): ArrayList<String> {
-            val listUsers = ArrayList<String>()
-            val selectQuery = "SELECT * FROM $TABLE_NAME"
+    fun getUsers(howMany: Int): ArrayList<User> {
+            val listUsers = ArrayList<User>()
+            val selectQuery = "SELECT * FROM $TABLE_NAME ORDER BY $COL_SCORE DESC"
             val db = this.writableDatabase
             val cursor =  db.rawQuery(selectQuery, null)
             if(cursor.moveToFirst()){
-                do {
-                    val user: String = cursor.getString(cursor.getColumnIndex(COL_LOGIN))
+                for (i in 0..howMany) {
+                    val user = User()
+                    user.id = cursor.getInt(cursor.getColumnIndexOrThrow(COL_ID))
+                    user.username = cursor.getString(cursor.getColumnIndexOrThrow(COL_LOGIN))
+                    user.score = cursor.getInt(cursor.getColumnIndexOrThrow(COL_SCORE))
                     listUsers.add(user)
-                } while (cursor.moveToNext())
+                    if (!cursor.moveToNext()){
+                        break
+                    }
+                }
             }
             cursor.close()
             db.close()

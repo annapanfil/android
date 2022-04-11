@@ -55,8 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
-            android:layout_marginLeft="2dp
-"
+            android:layout_marginLeft="2dp"
             android:text=""
             android:textColor="#FF0000" />
 
@@ -64,8 +63,7 @@
             android:id="@+id/b_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp
-"
+            android:layout_marginTop="30dp"
             android:text="@string/action_sign_in" />
 
         <Button
