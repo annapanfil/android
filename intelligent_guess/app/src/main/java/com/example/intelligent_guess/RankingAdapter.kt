@@ -34,7 +34,7 @@ class RankingAdapter(
 
     override fun onBindViewHolder(holder: RankingViewHolder, position: Int) {
         val user = ranking[position]
-        holder.bind(position, user)
+        holder.bind(position+1, user)
     }
 
     override fun getItemCount(): Int {

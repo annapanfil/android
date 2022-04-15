@@ -4,7 +4,6 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import androidx.core.content.contentValuesOf
 
 class DBHelper(context: Context):SQLiteOpenHelper(context,DATABASE_NAME,
     null, DATABASE_VER) {
@@ -84,68 +83,22 @@ class DBHelper(context: Context):SQLiteOpenHelper(context,DATABASE_NAME,
             return listUsers
         }
 
-    fun login(login: String, password: String): Int{
-        val query =  "SELECT * FROM $TABLE_NAME WHERE $COL_LOGIN = '$login'"
+    fun login(login: String, password: String): Int {
+        val query = "SELECT * FROM $TABLE_NAME WHERE $COL_LOGIN = '$login'"
         val db = this.writableDatabase
-        val cursor =  db.rawQuery(query, null)
+        val cursor = db.rawQuery(query, null)
         val ret: Int
-        if(cursor.moveToFirst()){
-            if(cursor.getString(cursor.getColumnIndexOrThrow(COL_PASSWORD)) == password)
+        if (cursor.moveToFirst()) {
+            if (cursor.getString(cursor.getColumnIndexOrThrow(COL_PASSWORD)) == password)
                 ret = cursor.getInt(cursor.getColumnIndexOrThrow(COL_ID))
             else
                 ret = -1
-        }
-        else
+        } else
             ret = -2
         cursor.close()
         db.close()
 
         return ret
     }
-
-    //CRUD
-//    val allMessage:List<Message>
-//        get(){
-//            val listMessage = ArrayList<Message>()
-//            val selectQuery = "SELECT * FROM $TABLE_NAME"
-//            val db = this.writableDatabase
-//            val cursor =  db.rawQuery(selectQuery, null)
-//            if(cursor.moveToFirst()){
-//                do {
-//                    val message = Message()
-//                    message.id = cursor.getInt(cursor.getColumnIndex(COL_ID))
-//                    message.info = cursor.getString(cursor.getColumnIndex(COL_MESSAGE))
-//                    message.type = cursor.getString(cursor.getColumnIndex(COL_TYPE))
-//                    message.key = cursor.getString(cursor.getColumnIndex(COL_PASS))
-//
-//                    listMessage.add(message)
-//                } while (cursor.moveToNext())
-//            }
-//            db.close()
-//            return listMessage
-//        }
-////
-//    fun addMessage(message:Message){
-//        val db= this.writableDatabase
-//        val values = ContentValues()
-//        values.put(COL_MESSAGE, message.info)
-//        values.put(COL_TYPE, message.type)
-//        values.put(COL_KEY, message.key)
-//
-//        db.insert(TABLE_NAME, null, values)
-//        db.close()
-//    }
-//
-//    fun testOne(key:String): Boolean {
-//        val selectQuery = "SELECT * FROM $TABLE_NAME WHERE $COL_KEY = '$key'"
-//        val db = this.writableDatabase
-//        val cursor = db.rawQuery(selectQuery, null)
-//        if (cursor.moveToFirst()){
-//            if(key == cursor.getString(cursor.getColumnIndex(COL_KEY))) {
-//                return false
-//            }
-//        }
-//        return true
-//    }
 
 }

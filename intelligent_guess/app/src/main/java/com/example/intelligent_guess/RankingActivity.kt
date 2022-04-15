@@ -2,9 +2,9 @@ package com.example.intelligent_guess
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ImageButton
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.intelligent_guess.RankingAdapter
 
 private lateinit var rankingAdapter: RankingAdapter
 
@@ -16,6 +16,8 @@ class RankingActivity : AppCompatActivity() {
         rankingAdapter = RankingAdapter(mutableListOf())
 
         val messageList = findViewById<RecyclerView>(R.id.rv_ranking)
+        val bPrevious = findViewById<ImageButton>(R.id.b_previous)
+
         messageList.adapter = rankingAdapter
         messageList.layoutManager = LinearLayoutManager(this)
 
@@ -24,6 +26,10 @@ class RankingActivity : AppCompatActivity() {
 
         for(user in users) {
             rankingAdapter.addUser(user)
+        }
+
+        bPrevious.setOnClickListener{
+            finish()
         }
     }
 }
