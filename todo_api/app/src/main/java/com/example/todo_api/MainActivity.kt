@@ -38,6 +38,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun addCommentsToDB(commentsArray: ArrayList<Comment>){
+        val dbHelper = DBHelper(this)
+        for (comment in commentsArray) {
+            dbHelper.insertComment(comment.id, comment.postId, comment.mail, comment.title, comment.body)
+        }
+    }
+
     fun readFromApi(objectType: String): ArrayList<Any> {
         Log.d("DEBUG", "About to read url https://jsonplaceholder.typicode.com/"+ objectType + "s")
         val url = "https://jsonplaceholder.typicode.com/"+ objectType + "s"
@@ -71,13 +78,15 @@ class MainActivity : AppCompatActivity() {
         val thread = Thread(){
             run{
                 // read data
-               userArray = readFromApi("user") as ArrayList<User>
-               todoArray = readFromApi("todo") as ArrayList<Todo>
-               postArray = readFromApi("post") as ArrayList<Post>
+                userArray = readFromApi("user") as ArrayList<User>
+                todoArray = readFromApi("todo") as ArrayList<Todo>
+                postArray = readFromApi("post") as ArrayList<Post>
+                var commentArray = readFromApi("comment") as ArrayList<Comment>
 
                 addUsersToDB(userArray)
                 addTodosToDB(todoArray)
                 addPostsToDB(postArray)
+                addCommentsToDB(commentArray)
 
                 getUserScreenInfo(userArray)
                 Log.d("DEBUG", userArray[0].name + " " + userArray[0].taskCtr)

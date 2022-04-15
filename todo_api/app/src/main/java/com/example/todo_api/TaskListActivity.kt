@@ -1,14 +1,11 @@
 package com.example.todo_api
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.startActivity
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.intelligent_guess.DBHelper
@@ -19,10 +16,11 @@ private lateinit var postAdapter: PostAdapter
 class TaskListActivity : AppCompatActivity() {
     private fun onPostClick(post: Post) {
         Toast.makeText(this, "click", Toast.LENGTH_SHORT).show()
-//        val intent = Intent(this, CommentListActivity::class.java)
-//        intent.putExtra("id", post.id)
-//        intent.putExtra("name", post.title)
-//        startActivity(intent)
+        val intent = Intent(this, CommentListActivity::class.java)
+        intent.putExtra("postId", post.id)
+        intent.putExtra("name", post.title)
+        startActivityForResult(intent, 0)
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,13 +36,13 @@ class TaskListActivity : AppCompatActivity() {
         val postArray = dbHelper.getPosts(userId)
 
         setContentView(R.layout.activity_task_list)
-        val tvName = findViewById<TextView>(R.id.tv_username)
+        val tvName = findViewById<TextView>(R.id.tv_posttitle)
         tvName.text = userName
 
         todoAdapter = TodoAdapter(mutableListOf())
         postAdapter = PostAdapter(mutableListOf())
 
-        val todoList = findViewById<RecyclerView>(R.id.rv_todos)
+        val todoList = findViewById<RecyclerView>(R.id.rv_comments)
         todoList.adapter = todoAdapter
         todoList.layoutManager = LinearLayoutManager(this)
 
@@ -67,5 +65,10 @@ class TaskListActivity : AppCompatActivity() {
         bPrevious.setOnClickListener(){
             finish()
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+            finish()
     }
 }

@@ -21,3 +21,11 @@ class Post(
     var title: String = "",
     var body: String = "",
 )
+
+class Comment(
+    var id: Int = -1,
+    var postId: Int = -1,
+    var mail: String = "",
+    var title: String = "",
+    var body: String = "",
+)

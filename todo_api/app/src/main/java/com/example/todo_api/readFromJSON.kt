@@ -62,6 +62,28 @@ fun readPost(reader: JsonReader): Post{
     return post
 }
 
+
+fun readComment(reader: JsonReader): Comment{
+    var name: String
+    val comment = Comment()
+
+    reader.beginObject()
+    while (reader.hasNext()) {
+        name = reader.nextName();
+        when (name) {
+            "id" -> comment.id = reader.nextInt()
+            "postId" -> comment.postId = reader.nextInt()
+            "email" -> comment.mail = reader.nextString()
+            "name" -> comment.title = reader.nextString()
+            "body" -> comment.body = reader.nextString()
+            else -> reader.skipValue()
+        }
+    }
+    reader.endObject();
+    return comment
+}
+
+
 fun readArray(reader: JsonReader, objectType: String): ArrayList<Any>{
     val objList = ArrayList<Any>()
     reader.beginArray();
@@ -70,6 +92,7 @@ fun readArray(reader: JsonReader, objectType: String): ArrayList<Any>{
             "user" -> objList.add(readUser(reader))
             "todo" -> objList.add(readTodo(reader))
             "post" -> objList.add(readPost(reader))
+            "comment"->objList.add(readComment(reader))
         }
     }
     reader.endArray();

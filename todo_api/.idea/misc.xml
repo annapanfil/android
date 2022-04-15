@@ -3,11 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/layout/activity_comment_list.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.33697916666666666" />
-        <entry key="app/src/main/res/layout/activity_task_list.xml" value="0.21" />
+        <entry key="app/src/main/res/layout/activity_task_list.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/item_comment.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_post.xml" value="0.35260416666666666" />
-        <entry key="app/src/main/res/layout/item_todo.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/item_user.xml" value="0.22962962962962963" />
+        <entry key="app/src/main/res/layout/item_todo.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/item_user.xml" value="0.33" />
       </map>
     </option>
   </component>

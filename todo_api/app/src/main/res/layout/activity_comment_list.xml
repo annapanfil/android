@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TaskListActivity">
+    tools:context=".CommentListActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,6 +23,12 @@
                 android:layout_height="wrap_content"
                 app:srcCompat="?attr/actionModeCloseDrawable" />
 
+            <ImageButton
+                android:id="@+id/b_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@android:drawable/ic_dialog_dialer" />
+
             <Space
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -33,15 +39,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:text="Name" />
+                android:text="Title" />
         </LinearLayout>
 
         <TextView
             android:id="@+id/tv_comment_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ZADANIA"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:text="KOMENTARZE" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_comments"
@@ -49,18 +55,5 @@
             android:layout_height="0dp"
             android:layout_weight="1"/>
 
-        <TextView
-            android:id="@+id/tv_post_header"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="POSTY"
-            android:layout_marginTop="10dp"
-            android:layout_gravity="center" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_posts"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

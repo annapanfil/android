@@ -15,7 +15,7 @@ class UserAdapter(
     inner class RankingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val tvName = itemView.findViewById<TextView>(R.id.tv_name)
         val tvMail = itemView.findViewById<TextView>(R.id.tv_email)
-        val tvTodos = itemView.findViewById<TextView>(R.id.tv_todos)
+        val tvTodos = itemView.findViewById<TextView>(R.id.tv_body)
         val tvPosts = itemView.findViewById<TextView>(R.id.tv_posts)
 
         init{
