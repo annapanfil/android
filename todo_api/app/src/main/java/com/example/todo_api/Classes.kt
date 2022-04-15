@@ -1,10 +1,12 @@
 package com.example.todo_api
 
 class User (
-    var id: Int = -1,
+    var id: Int = -2,
     var name: String = "",
     var email: String = "",
-): Any()
+    var taskCtr: Int = 0,
+    var postCtr: Int = 0,
+)
 
 class Todo(
     var id: Int = -1,

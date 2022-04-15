@@ -4,6 +4,9 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.example.todo_api.Post
+import com.example.todo_api.Todo
+import com.example.todo_api.User
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -53,7 +56,7 @@ class DBHelper(context: Context):SQLiteOpenHelper(context,DATABASE_NAME,
         values.put(USER_NAME, name)
         values.put(USER_EMAIL, email)
 
-        db.insert(TABLE_USERS, null, values)
+        db.insertWithOnConflict(TABLE_USERS, null, values, SQLiteDatabase.CONFLICT_IGNORE)
         db.close()
     }
 
@@ -64,8 +67,7 @@ class DBHelper(context: Context):SQLiteOpenHelper(context,DATABASE_NAME,
         values.put(COL_USER_ID, userId)
         values.put(TODO_TITLE, title)
         values.put(TODO_COMPLETED, completed)
-
-        db.insert(TABLE_TODOS, null, values)
+        db.insertWithOnConflict(TABLE_TODOS, null, values, SQLiteDatabase.CONFLICT_IGNORE)
         db.close()
     }
 
@@ -77,69 +79,64 @@ class DBHelper(context: Context):SQLiteOpenHelper(context,DATABASE_NAME,
         values.put(POST_TITLE, title)
         values.put(POST_BODY, body)
 
-        db.insert(TABLE_POSTS, null, values)
+        db.insertWithOnConflict(TABLE_POSTS, null, values, SQLiteDatabase.CONFLICT_IGNORE)
         db.close()
     }
 
-//
-//    fun getScore(userId: Int): Int {
-//        val selectQuery = "SELECT $COL_SCORE FROM $TABLE_NAME WHERE $COL_ID = '$userId'"
-//        val db = this.writableDatabase
-//        val cursor =  db.rawQuery(selectQuery, null)
-//        val score = if(cursor.moveToFirst()){
-//            cursor.getInt(cursor.getColumnIndexOrThrow(COL_SCORE))
-//        } else -1
-//        cursor.close()
-//        db.close()
-//        return score
-//    }
-//
-//    fun setScore(userId: Int, score: Int){
-//        val query = "UPDATE $TABLE_NAME SET $COL_SCORE = $score WHERE $COL_ID = '$userId'"
-//        val db = this.writableDatabase
-//        db.execSQL(query)
-//        db.close()
-//    }
-//
-//
-//    fun getUsers(howMany: Int): ArrayList<User> {
-//        val listUsers = ArrayList<User>()
-//        val selectQuery = "SELECT * FROM $TABLE_NAME ORDER BY $COL_SCORE DESC"
-//        val db = this.writableDatabase
-//        val cursor =  db.rawQuery(selectQuery, null)
-//        if(cursor.moveToFirst()){
-//            for (i in 0..howMany) {
-//                val user = User()
-//                user.id = cursor.getInt(cursor.getColumnIndexOrThrow(COL_ID))
-//                user.username = cursor.getString(cursor.getColumnIndexOrThrow(COL_LOGIN))
-//                user.score = cursor.getInt(cursor.getColumnIndexOrThrow(COL_SCORE))
-//                listUsers.add(user)
-//                if (!cursor.moveToNext()){
-//                    break
-//                }
-//            }
-//        }
-//        cursor.close()
-//        db.close()
-//        return listUsers
-//    }
-//
-//    fun login(login: String, password: String): Int {
-//        val query = "SELECT * FROM $TABLE_NAME WHERE $COL_LOGIN = '$login'"
-//        val db = this.writableDatabase
-//        val cursor = db.rawQuery(query, null)
-//        val ret: Int
-//        if (cursor.moveToFirst()) {
-//            if (cursor.getString(cursor.getColumnIndexOrThrow(COL_PASSWORD)) == password)
-//                ret = cursor.getInt(cursor.getColumnIndexOrThrow(COL_ID))
-//            else
-//                ret = -1
-//        } else
-//            ret = -2
-//        cursor.close()
-//        db.close()
-//
-//        return ret
-//    }
+    fun getCtr(id: Int, objName: String): Int {
+        val selectQuery = when (objName) {
+            "todo" -> "SELECT count(*) AS ctr FROM $TABLE_TODOS WHERE $COL_USER_ID=$id"
+            "post" -> "SELECT count(*) AS ctr FROM $TABLE_POSTS WHERE $COL_USER_ID=$id"
+            else -> return -1
+        }
 
+        var ctr = -1
+        val db = this.writableDatabase
+        val cursor =  db.rawQuery(selectQuery, null)
+        if(cursor.moveToFirst()){
+            ctr = cursor.getInt(cursor.getColumnIndexOrThrow("ctr"))
+        }
+        cursor.close()
+        db.close()
+        return ctr
+    }
+
+    fun getTodos(id: Int): ArrayList<Todo>{
+        val selectQuery = "SELECT $TODO_TITLE, $TODO_COMPLETED FROM $TABLE_TODOS WHERE $COL_USER_ID=$id"
+
+        val todoArray = ArrayList<Todo>()
+        val db = this.writableDatabase
+        val cursor =  db.rawQuery(selectQuery, null)
+        if(cursor.moveToFirst()){
+            do{
+                val todo = Todo()
+                todo.title = cursor.getString(cursor.getColumnIndexOrThrow(TODO_TITLE))
+                todo.completed = cursor.getInt(cursor.getColumnIndexOrThrow(TODO_COMPLETED)) == 1
+                todoArray.add(todo)
+
+            }while(cursor.moveToNext())
+        }
+        cursor.close()
+        db.close()
+        return todoArray
+    }
+
+    fun getPosts(id: Int): ArrayList<Post>{
+        val selectQuery = "SELECT $POST_TITLE, $COL_ID FROM $TABLE_POSTS WHERE $COL_USER_ID=$id"
+
+        val postArray = ArrayList<Post>()
+        val db = this.writableDatabase
+        val cursor =  db.rawQuery(selectQuery, null)
+        if(cursor.moveToFirst()){
+            do{
+                val post = Post()
+                post.title = cursor.getString(cursor.getColumnIndexOrThrow(POST_TITLE))
+                post.id = cursor.getInt(cursor.getColumnIndexOrThrow(COL_ID))
+                postArray.add(post)
+            }while(cursor.moveToNext())
+        }
+        cursor.close()
+        db.close()
+        return postArray
+    }
 }
