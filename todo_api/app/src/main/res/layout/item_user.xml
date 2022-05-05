@@ -16,12 +16,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="2dp"
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:text="Name" />
 
         <Space
             android:layout_width="20dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             />
 
         <TextView
@@ -44,6 +45,7 @@
             android:text="0"
             android:layout_weight="2"
             android:gravity="end"
+            android:minWidth="35dp"
             />
 
         <Space
@@ -55,6 +57,7 @@
             android:id="@+id/tv_posts"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:minWidth="35dp"
             android:text="0"
             android:layout_weight="2"
             android:gravity="end"

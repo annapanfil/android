@@ -15,16 +15,16 @@
         <activity
             android:name=".CommentListActivity"
             android:exported="false" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".TaskListActivity" />
+<!--            <meta-data-->
+<!--                android:name="android.support.PARENT_ACTIVITY"-->
+<!--                android:value=".TaskListActivity" />-->
         </activity>
         <activity
             android:name=".TaskListActivity"
             android:exported="false">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+<!--            <meta-data-->
+<!--                android:name="android.support.PARENT_ACTIVITY"-->
+<!--                android:value=".MainActivity" />-->
         </activity>
         <activity
             android:name=".MainActivity"

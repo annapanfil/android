@@ -45,6 +45,7 @@ class CommentListActivity : AppCompatActivity() {
 
         // listeners
         bPrevious.setOnClickListener(){
+            setResult(RESULT_CANCELED, null);
             finish()
         }
 
