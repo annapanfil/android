@@ -1,10 +1,15 @@
 package com.example.sensory
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.os.BatteryManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -12,13 +17,18 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.gms.location.*
 
-class MainActivity : AppCompatActivity(), SensorEventListener {
+class MainActivity : AppCompatActivity(), SensorEventListener{
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var sensorManager: SensorManager
+    private lateinit var receiver: BroadcastReceiver
+    private lateinit var batteryFilter: IntentFilter
     private var brightness: Sensor? = null
     private var temperature: Sensor? = null
+    private var accelerometer: Sensor? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,10 +36,21 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         fetchLocation()
         setUpSensor()
+
+        val thread = Thread(){
+            while(true){
+                run{
+                    Thread.sleep(60000)
+                }
+                runOnUiThread(){
+                    registerReceiver(receiver, batteryFilter)
+                }
+            }
+        }
+        thread.start()
     }
 
     // SHOWING
-
     private fun showLocation(latitude: Double, longitude: Double){
         val tvLocation = findViewById<TextView>(R.id.tv_location)
 
@@ -47,15 +68,43 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         tvLightVal.text = brightness.toString()
     }
 
-    private fun showTemperature(temperature: Float){
-        Toast.makeText(this, "Temperature $temperature", Toast.LENGTH_SHORT).show()
+    private fun changeSquare(sides: Float, updown: Float){
+        val square = findViewById<TextView>(R.id.tv_square)
+        square.apply{
+            rotationX = updown * 3f
+            rotationY = sides * 3f
+            rotation = -sides
+            translationX = sides * -10
+            translationY = updown * 10
+        }
+        square.text = "up/down ${updown.toInt()}\nleft/right ${sides.toInt()}"
     }
 
-    private fun setUpSensor(){
+    private fun showTemperature(temperature: Float){
+        Toast.makeText(this, "Battery Temperature: $temperature${0x00B0.toChar()}C", Toast.LENGTH_SHORT).show()
+    }
+
+    // Configuration
+    private fun setUpSensor() {
         // start the light sensor
         sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
         brightness = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT)
         temperature = sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE)
+        accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER).also {
+            sensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_NORMAL, SensorManager.SENSOR_DELAY_FASTEST)
+        batteryFilter = IntentFilter(Intent.ACTION_BATTERY_CHANGED)
+        }
+
+        // initialize a new broadcast receiver instance
+        receiver = object : BroadcastReceiver() {
+            override fun onReceive(context: Context?, intent: Intent?) {
+                // get battery temperature programmatically from intent
+                intent?.apply {
+                    val temp = getIntExtra(BatteryManager.EXTRA_TEMPERATURE, 0) / 10F
+                    showTemperature(temp)
+                }
+            }
+        }
     }
 
     private fun fetchLocation() {
@@ -102,7 +151,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         }
 
         if (event?.sensor?.type == Sensor.TYPE_ACCELEROMETER) {
-            Toast.makeText(this, "Accelometer", Toast.LENGTH_SHORT).show()
+            changeSquare(event.values[0], event.values[1])
         }
 
         if (event?.sensor?.type == Sensor.TYPE_LIGHT) {
@@ -118,10 +167,17 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         super.onResume()
         sensorManager.registerListener(this, brightness, SensorManager.SENSOR_DELAY_NORMAL)
         sensorManager.registerListener(this, temperature, SensorManager.SENSOR_DELAY_NORMAL)
+        sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL, SensorManager.SENSOR_DELAY_FASTEST)
+
     }
 
     override fun onPause(){
         super.onPause()
         sensorManager.unregisterListener(this)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(receiver)
     }
 }
