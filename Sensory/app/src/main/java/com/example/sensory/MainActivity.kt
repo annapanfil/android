@@ -13,6 +13,7 @@ import android.os.BatteryManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
@@ -26,9 +27,9 @@ class MainActivity : AppCompatActivity(), SensorEventListener{
     private lateinit var receiver: BroadcastReceiver
     private lateinit var batteryFilter: IntentFilter
     private var brightness: Sensor? = null
-    private var temperature: Sensor? = null
     private var accelerometer: Sensor? = null
-
+    private var magneticField: Sensor? = null
+    private var proximity: Sensor? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,19 +78,46 @@ class MainActivity : AppCompatActivity(), SensorEventListener{
             translationX = sides * -10
             translationY = updown * 10
         }
-        square.text = "up/down ${updown.toInt()}\nleft/right ${sides.toInt()}"
+        square.text = "góra/dół ${updown.toInt()}\nprawo/lewo ${sides.toInt()}"
     }
 
     private fun showTemperature(temperature: Float){
-        Toast.makeText(this, "Battery Temperature: $temperature${0x00B0.toChar()}C", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Temperatura baterii: $temperature${0x00B0.toChar()}C", Toast.LENGTH_SHORT).show()
     }
+
+    private fun showMagneticField(x: Float, y: Float, z: Float){
+        val tvMagneticField = findViewById<TextView>(R.id.tv_magnetic_field)
+
+        tvMagneticField.text = "Pole magnetyczne: ${x.toInt()} ${y.toInt()} ${z.toInt()}"
+    }
+
+    private fun showProximity(proximity: Float){
+        val tvClose = findViewById<TextView>(R.id.tv_close)
+        val pbProxi = findViewById<ProgressBar>(R.id.pb_proximity) as ProgressBar
+        val tvProxi = findViewById<TextView>(R.id.tv_proximity_val)
+
+        pbProxi.max = 5
+        val progress = kotlin.math.min(proximity.toInt(), 5)
+
+        pbProxi.progress = progress
+        tvProxi.text = proximity.toString()
+
+        if (proximity < 1){
+            tvClose.visibility = View.VISIBLE
+        }
+        if (proximity > 3){
+            tvClose.visibility = View.INVISIBLE
+        }
+    }
+
 
     // Configuration
     private fun setUpSensor() {
         // start the light sensor
         sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
         brightness = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT)
-        temperature = sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE)
+        magneticField = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)
+        proximity = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY)
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER).also {
             sensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_NORMAL, SensorManager.SENSOR_DELAY_FASTEST)
         batteryFilter = IntentFilter(Intent.ACTION_BATTERY_CHANGED)
@@ -157,6 +185,14 @@ class MainActivity : AppCompatActivity(), SensorEventListener{
         if (event?.sensor?.type == Sensor.TYPE_LIGHT) {
             showBrightness(event.values[0])
         }
+
+        if (event?.sensor?.type == Sensor.TYPE_MAGNETIC_FIELD) {
+            showMagneticField(event.values[0], event.values[1], event.values[2])
+        }
+
+        if (event?.sensor?.type == Sensor.TYPE_PROXIMITY) {
+            showProximity(event.values[0])
+        }
     }
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
@@ -166,8 +202,10 @@ class MainActivity : AppCompatActivity(), SensorEventListener{
     override fun onResume(){
         super.onResume()
         sensorManager.registerListener(this, brightness, SensorManager.SENSOR_DELAY_NORMAL)
-        sensorManager.registerListener(this, temperature, SensorManager.SENSOR_DELAY_NORMAL)
         sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL, SensorManager.SENSOR_DELAY_FASTEST)
+        sensorManager.registerListener(this, magneticField, SensorManager.SENSOR_DELAY_NORMAL)
+        sensorManager.registerListener(this, proximity, SensorManager.SENSOR_DELAY_NORMAL)
+
 
     }
 
@@ -178,6 +216,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener{
 
     override fun onDestroy() {
         super.onDestroy()
+        sensorManager.unregisterListener(this)
         unregisterReceiver(receiver)
     }
 }
