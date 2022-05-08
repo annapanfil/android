@@ -52,8 +52,8 @@ class DBHelper(context: Context):SQLiteOpenHelper(context,DATABASE_NAME,
     }
 
 
-    fun getDetails(id: Int): String{
-        val selectQuery = "SELECT $COL_DESCR FROM $TABLE WHERE $COL_ID=$id"
+    fun getDetails(id: Long): String{
+        val selectQuery = "SELECT $COL_DESCR, $COL_TRACK FROM $TABLE WHERE $COL_ID=$id"
         val db = this.writableDatabase
         var details: String = "Wrong id. No details here"
 
@@ -81,5 +81,20 @@ class DBHelper(context: Context):SQLiteOpenHelper(context,DATABASE_NAME,
         cursor.close()
         db.close()
         return names
+    }
+
+    fun getName(id: Long): String?{
+        val selectQuery = "SELECT $COL_NAME FROM $TABLE WHERE $COL_ID = $id"
+
+        var name: String? = null
+        val db = this.writableDatabase
+        val cursor =  db.rawQuery(selectQuery, null)
+
+        if(cursor.moveToFirst()){
+            name = cursor.getString(cursor.getColumnIndexOrThrow(COL_NAME))
+        }
+        cursor.close()
+        db.close()
+        return name
     }
 }

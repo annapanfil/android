@@ -4,8 +4,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.Toast
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), Listener{
     fun addTracksData(){
         //source: https://regionwielkopolska.pl/artykuly-turystyka/szlaki-w-okolicach-poznania-2/
         val dbhelper = DBHelper(this)
@@ -27,5 +28,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         addTracksData()
         setContentView(R.layout.activity_main)
+    }
+
+    override fun itemClicked(id: Long) {
+        Toast.makeText(this, "Click $id", Toast.LENGTH_SHORT).show()
+        intent = Intent(this, DetailActivity::class.java)
+        intent.putExtra("route_id", id)
+        startActivity(intent)
     }
 }
