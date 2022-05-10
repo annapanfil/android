@@ -3,4 +3,6 @@
     <dimen name="text_size_big">24sp</dimen>
     <dimen name="margin">40sp</dimen>
     <dimen name="marginSmall">20dp</dimen>
+    <dimen name="marginVerySmall">10dp</dimen>
+    <dimen name="text_size_b">20sp</dimen>
 </resources>

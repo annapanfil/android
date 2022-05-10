@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OpiekunLeków">
         <activity
+            android:name=".activity_add_med"
+            android:exported="false" />
+        <activity
             android:name=".PatientCard"
             android:exported="false" />
         <activity

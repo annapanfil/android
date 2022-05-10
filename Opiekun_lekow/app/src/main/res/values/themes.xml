@@ -14,5 +14,6 @@
         <!-- Customize your theme here. -->
         <item name="android:textColor"> @color/darkText</item>
         <item name="android:textColorSecondary">@color/lightText</item>
+        <item name="colorAccent">@color/OLBlue</item>
     </style>
 </resources>

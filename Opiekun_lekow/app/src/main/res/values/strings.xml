@@ -1,12 +1,28 @@
 <resources>
     <string name="app_name">Opiekun Leków</string>
-    <string name="scan_qr_code">skanuj kod qr</string>
+
+    <string name="scan_qr_code">Skanuj kod qr</string>
     <string name="med_list">Lista leków</string>
-    <string name="share">udostępnij</string>
+
+    <!--    activity patient card   -->
+    <string name="share">Udostępnij</string>
     <string name="hour">Godzina</string>
     <string name="how_much">Ile</string>
-    <string name="details">Uwagi</string>
+    <string name="notes">Uwagi</string>
     <string name="med_given">Podane?</string>
-    <string name="del_med">usuń lek</string>
-    <string name="add_med">dodaj lek</string>
+    <string name="del_med">Usuń lek</string>
+    <string name="add_med">Dodaj lek</string>
+
+    <!--   activity add med -->
+    <string name="title_add_med">Dodaj lek</string>
+    <string name="med_name">Nazwa leku</string>
+    <string name="from">od</string>
+    <string name="to">do</string>
+    <string name="med_duration">Okres podawania leku</string>
+    <string name="doses">Dawki</string>
+    <string name="cancel">anuluj</string>
+    <string name="add_dos">dodaj dawkę</string>
+    <string name="begin_date">Data rozpoczęcia przyjmowania leku</string>
+    <string name="end_date">Data zakończenia przyjmowania leku</string>
+
 </resources>

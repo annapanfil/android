@@ -82,7 +82,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="4"
                 android:padding="10sp"
-                android:text="@string/details" />
+                android:text="@string/notes" />
 
             <TextView
                 android:id="@+id/tv_header_given"
