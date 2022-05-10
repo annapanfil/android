@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ActivityAddMedToList"
+    android:padding="@dimen/margin"
+    android:background="@color/OLDark">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/title_add_med_to_list"
+        android:textSize="@dimen/text_size_big"
+        android:textStyle="bold"
+        android:textColor="@color/lightText"
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/margin"
+        />
+
+    <!-- https://stackoverflow.com/questions/37019941/how-to-add-a-hint-in-spinner-in-xml   -->
+    <Spinner
+        android:id="@+id/s_name"
+        android:layout_width="wrap_content"
+        android:minWidth="120dp"
+        android:minHeight="30dp"
+        android:prompt="@string/med_name"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/marginSmall"/>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:text="@string/quantity"
+                android:textColor="@color/lightText"/>
+
+
+            <EditText
+                android:id="@+id/et_quantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="numberDecimal"
+                android:hint="@string/pack_quant"
+                android:layout_weight="1"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:text="@string/patient"
+                android:textColor="@color/lightText"/>
+
+
+            <EditText
+                android:id="@+id/et_patient_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="numberDecimal"
+                android:hint="@string/patient_name"
+                android:layout_weight="1"/>
+        </TableRow>
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:text="@string/rp_nr"
+                android:textColor="@color/lightText"/>
+
+
+            <EditText
+                android:id="@+id/et_rp_nr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="numberDecimal"
+                android:hint="@string/rp_nr"
+                android:layout_weight="1"/>
+        </TableRow>
+
+    </TableLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:gravity="bottom"
+        >
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_ok"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            app:srcCompat="@drawable/ic_baseline_done_24"
+            android:focusable="true"
+            android:contentDescription="@android:string/ok"
+            android:backgroundTint="@color/OLGreen"
+            app:borderWidth="0dp"/>
+
+        <Space
+            android:layout_width="@dimen/marginSmall"
+            android:layout_height="0dp" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            app:srcCompat="@android:drawable/ic_delete"
+            android:focusable="true"
+            android:contentDescription="@string/cancel"
+            android:backgroundTint="@color/OLOrange"
+            app:borderWidth="0dp"/>
+    </LinearLayout>
+</LinearLayout>

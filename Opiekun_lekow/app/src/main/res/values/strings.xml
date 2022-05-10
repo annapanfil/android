@@ -24,5 +24,11 @@
     <string name="add_dos">dodaj dawkę</string>
     <string name="begin_date">Data rozpoczęcia przyjmowania leku</string>
     <string name="end_date">Data zakończenia przyjmowania leku</string>
+    <string name="quantity">Ilość</string>
+    <string name="pack_quant">Ilość opakowań leku</string>
+    <string name="patient_name">Nazwisko pacjenta</string>
+    <string name="patient">Pacjent</string>
+    <string name="rp_nr">Numer recepty</string>
+    <string name="title_add_med_to_list">Dodaj lek do listy</string>
 
 </resources>
