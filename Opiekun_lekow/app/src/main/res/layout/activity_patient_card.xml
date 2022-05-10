@@ -20,111 +20,50 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Imię i nazwisko"
-            android:textSize="24sp"
+            android:textSize="@dimen/text_size_big"
             android:textStyle="bold"
             android:textColor="@color/white"
             android:layout_gravity="center"
-            android:paddingTop="40sp"/>
+            android:layout_margin="@dimen/margin"/>
 
-        <TableLayout
+        <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:showDividers="middle|beginning|end"
-            android:layout_margin="40dp">
+            android:layout_height="wrap_content" >
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/OLOrange">
+        </androidx.recyclerview.widget.RecyclerView>
 
-                <TextView
-                    android:id="@+id/tv_header_hour"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Godzina"
-                    android:padding="10sp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="1"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-                <TextView
-                    android:id="@+id/tv_header_quantity"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Ile"
-                    android:padding="10sp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="1"
-                    />
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/floatingActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin"
+                android:clickable="true"
+                android:focusable="true"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:srcCompat="@android:drawable/ic_menu_add"
+                tools:layout_editor_absoluteX="177dp"
+                android:contentDescription="@string/add_med" />
 
-                <TextView
-                    android:id="@+id/tv_header_notes"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Uwagi"
-                    android:padding="10sp"
-                    android:layout_weight="4"
-                    android:layout_gravity="center"
-                    />
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/floatingActionButton2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginEnd="@dimen/margin"
+                android:layout_marginBottom="@dimen/margin"
+                android:focusable="true"
+                android:clickable="true"
+                app:srcCompat="@android:drawable/ic_menu_share"
+                android:contentDescription="@string/share" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <TextView
-                    android:id="@+id/tv_header_given"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Podane?"
-                    android:padding="10sp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="1"
-                    />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/tv_hour"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="12:00"
-                    android:padding="10sp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="1"
-                    android:textColor="@color/lightText"
-                    />
-
-                <TextView
-                    android:id="@+id/tv_quantity"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="2"
-                    android:padding="10sp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="1"
-                    android:textColor="@color/lightText"
-                    />
-
-                <TextView
-                    android:id="@+id/tv_notes"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="przed posiłkiem"
-                    android:padding="10sp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="4"
-                    android:textColor="@color/lightText"
-                    />
-
-                <CheckBox
-                    android:id="@+id/chb_given"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    />
-
-            </TableRow>
-
-        </TableLayout>
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
