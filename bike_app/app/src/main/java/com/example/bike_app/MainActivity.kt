@@ -3,8 +3,12 @@ package com.example.bike_app
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
+import android.widget.FrameLayout
 import android.widget.Toast
+import androidx.fragment.app.FragmentContainer
+import androidx.fragment.app.FragmentTransaction
 
 class MainActivity : AppCompatActivity(), Listener{
     fun addTracksData(){
@@ -31,9 +35,26 @@ class MainActivity : AppCompatActivity(), Listener{
     }
 
     override fun itemClicked(id: Long) {
-        Toast.makeText(this, "Click $id", Toast.LENGTH_SHORT).show()
-        intent = Intent(this, DetailActivity::class.java)
-        intent.putExtra("route_id", id)
-        startActivity(intent)
+        val fcDetails = findViewById<FrameLayout>(R.id.fc_detail)
+        Toast.makeText(this, "id $id", Toast.LENGTH_SHORT).show()
+        if (fcDetails != null){
+            Log.d("URZDZENIE", "tu tablet")
+            val details = RouteDetailFragment()
+            val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
+            Log.d("DEBUG", "ID $id")
+
+            details.setRouteId(id+1)
+            ft.replace(R.id.fc_detail, details)
+            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+            ft.addToBackStack(null)
+            ft.commit()
+        }
+        else {
+            Log.d("URZDZENIE", "tu telefon")
+            Toast.makeText(this, "Click $id", Toast.LENGTH_SHORT).show()
+            intent = Intent(this, DetailActivity::class.java)
+            intent.putExtra("route_id", id + 1)
+            startActivity(intent)
+        }
     }
 }

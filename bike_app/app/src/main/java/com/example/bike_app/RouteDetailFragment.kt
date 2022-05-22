@@ -1,6 +1,7 @@
 package com.example.bike_app
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,13 @@ import android.widget.Toast
 
 class RouteDetailFragment : Fragment() {
     private var routeId: Long? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if (savedInstanceState != null){
+            routeId = savedInstanceState.getLong("routeId")
+        }
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -27,14 +35,16 @@ class RouteDetailFragment : Fragment() {
             tvName.text = dbHelper.getName(routeId as Long)
             tvDetails.text = dbHelper.getDetails(routeId as Long)
         }
+    }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putLong("routeId", routeId!!)
     }
 
     fun setRouteId(id: Long){
-        Toast.makeText(context, "id in RouteDetailFrag $id -", Toast.LENGTH_SHORT).show()
-
         routeId = id;
-        Toast.makeText(context, "id in RouteDetailFrag $id $routeId", Toast.LENGTH_SHORT).show()
+        Log.d("DEBUG", "id in RouteDetailFrag $id $routeId")
 
     }
 }
