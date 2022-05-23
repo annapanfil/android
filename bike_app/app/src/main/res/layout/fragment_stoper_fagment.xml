@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".StoperFagment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height ="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:text="hh::mm::ss"
+            android:layout_marginTop="@dimen/smallMargin"/>
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/smallMargin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal">
+
+            <Button
+                android:id="@+id/b_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/start"
+                android:layout_marginStart="@dimen/smallMargin"/>
+
+            <Button
+                android:id="@+id/b_pause"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/pause"
+                android:layout_marginStart="@dimen/smallMargin"/>
+
+            <Button
+                android:id="@+id/b_reset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/reset"
+                android:layout_marginStart="@dimen/smallMargin"
+                android:layout_marginEnd="@dimen/smallMargin"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>

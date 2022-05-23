@@ -35,16 +35,16 @@ class MainActivity : AppCompatActivity(), Listener{
     }
 
     override fun itemClicked(id: Long) {
-        val fcDetails = findViewById<FrameLayout>(R.id.fc_detail)
+        val flDetails = findViewById<FrameLayout>(R.id.fl_detail)
         Toast.makeText(this, "id $id", Toast.LENGTH_SHORT).show()
-        if (fcDetails != null){
+        if (flDetails != null){
             Log.d("URZDZENIE", "tu tablet")
             val details = RouteDetailFragment()
             val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
             Log.d("DEBUG", "ID $id")
 
             details.setRouteId(id+1)
-            ft.replace(R.id.fc_detail, details)
+            ft.replace(R.id.fl_detail, details)
             ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
             ft.addToBackStack(null)
             ft.commit()

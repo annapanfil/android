@@ -7,7 +7,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <TextView
@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
+            android:layout_margin="@dimen/normalMargin"
             android:text="Name"
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
@@ -23,12 +23,25 @@
             android:id="@+id/tv_details"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:justificationMode="inter_word"
+            android:layout_marginStart="@dimen/normalMargin"
+            android:layout_marginEnd="@dimen/normalMargin"
             android:text="Details"
+            android:justificationMode="inter_word"
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+        <View
+            android:layout_margin="@dimen/normalMargin"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#c0c0c0"/>
+
+
+        <FrameLayout
+            android:id="@+id/fl_stoper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
+
+
 
 </FrameLayout>

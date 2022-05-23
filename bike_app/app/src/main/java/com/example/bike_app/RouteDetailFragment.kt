@@ -8,13 +8,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.FragmentTransaction
 
 class RouteDetailFragment : Fragment() {
     private var routeId: Long? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (savedInstanceState != null){
+        if (savedInstanceState == null){
+            val stoper = StoperFagment()
+            val ft = childFragmentManager.beginTransaction()
+            ft.add(R.id.fl_stoper, stoper)
+            ft.addToBackStack(null)
+            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+            ft.commit()
+        }
+        else{
             routeId = savedInstanceState.getLong("routeId")
         }
     }
@@ -43,7 +52,7 @@ class RouteDetailFragment : Fragment() {
     }
 
     fun setRouteId(id: Long){
-        routeId = id;
+        routeId = id
         Log.d("DEBUG", "id in RouteDetailFrag $id $routeId")
 
     }
