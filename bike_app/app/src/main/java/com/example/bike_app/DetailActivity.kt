@@ -2,7 +2,6 @@ package com.example.bike_app
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 
 class DetailActivity : AppCompatActivity() {
 
@@ -11,6 +10,6 @@ class DetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_detail)
         val frag = supportFragmentManager.findFragmentById(R.id.f_details) as RouteDetailFragment
         val routeId = intent.getLongExtra("route_id", -1)
-        frag.setRouteId(routeId)
+        frag.setTrackId(routeId)
     }
 }

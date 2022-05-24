@@ -4,10 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.Toast
-import androidx.fragment.app.FragmentContainer
 import androidx.fragment.app.FragmentTransaction
 
 class MainActivity : AppCompatActivity(), Listener{
@@ -34,16 +32,16 @@ class MainActivity : AppCompatActivity(), Listener{
         setContentView(R.layout.activity_main)
     }
 
-    override fun itemClicked(id: Long) {
+    override fun itemClicked(trackId: Long) {
         val flDetails = findViewById<FrameLayout>(R.id.fl_detail)
-        Toast.makeText(this, "id $id", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "id $trackId", Toast.LENGTH_SHORT).show()
         if (flDetails != null){
             Log.d("URZDZENIE", "tu tablet")
             val details = RouteDetailFragment()
             val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
-            Log.d("DEBUG", "ID $id")
+            Log.d("DEBUG", "ID $trackId")
 
-            details.setRouteId(id+1)
+            details.setTrackId(trackId+1)
             ft.replace(R.id.fl_detail, details)
             ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
             ft.addToBackStack(null)
@@ -51,9 +49,9 @@ class MainActivity : AppCompatActivity(), Listener{
         }
         else {
             Log.d("URZDZENIE", "tu telefon")
-            Toast.makeText(this, "Click $id", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Click $trackId", Toast.LENGTH_SHORT).show()
             intent = Intent(this, DetailActivity::class.java)
-            intent.putExtra("route_id", id + 1)
+            intent.putExtra("route_id", trackId + 1)
             startActivity(intent)
         }
     }

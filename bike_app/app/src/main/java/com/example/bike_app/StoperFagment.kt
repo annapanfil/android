@@ -10,12 +10,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import android.os.Looper as Looper
 
 class StoperFagment : Fragment(), View.OnClickListener{
     private var seconds: Int = 0
     private var running: Boolean = false
     private var wasRunning: Boolean = false //czy działał przed wstrzymaniem aktywności
+    private var trackId: Long? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +23,7 @@ class StoperFagment : Fragment(), View.OnClickListener{
             seconds = savedInstanceState.getInt("seconds")
             running = savedInstanceState.getBoolean("running")
             wasRunning = savedInstanceState.getBoolean("wasRunning")
+            trackId = savedInstanceState.getLong("trackId")
 
         }
     }
@@ -38,9 +39,11 @@ class StoperFagment : Fragment(), View.OnClickListener{
         val bPause = layout.findViewById<Button>(R.id.b_pause)
         val bReset = layout.findViewById<Button>(R.id.b_reset)
         val bStart = layout.findViewById<Button>(R.id.b_start)
+        val bSave = layout.findViewById<Button>(R.id.b_save)
         bPause.setOnClickListener(this)
         bStart.setOnClickListener(this)
         bReset.setOnClickListener(this)
+        bSave.setOnClickListener(this)
 
         return layout
     }
@@ -50,6 +53,7 @@ class StoperFagment : Fragment(), View.OnClickListener{
             R.id.b_start -> onClickStart()
             R.id.b_reset -> onClickReset()
             R.id.b_pause -> onClickPause()
+            R.id.b_save -> onClickSave()
         }
     }
 
@@ -71,6 +75,7 @@ class StoperFagment : Fragment(), View.OnClickListener{
         outState.putInt("seconds", seconds)
         outState.putBoolean("running", running)
         outState.putBoolean("wasRunning", wasRunning)
+        outState.putLong("trackId", trackId!!)
     }
 
 
@@ -84,13 +89,21 @@ class StoperFagment : Fragment(), View.OnClickListener{
         running = false
     }
 
-    fun onClickReset(){
+    private fun onClickReset(){
         Log.d("DEBUG", "Reset")
         running = false
         seconds = 0
     }
 
-    fun runStoper(view: View){
+    private fun onClickSave(){
+        Log.d("DEBUG", "Save time $trackId $seconds")
+        onClickPause()
+        val dbHelper = DBHelper(requireContext())
+        dbHelper.insertTime(trackId!!, seconds)
+        showResults(dbHelper)
+    }
+
+    private fun runStoper(view: View){
         val timeView = view.findViewById<TextView>(R.id.tv_time)
         val handler = Handler(getMainLooper())
         handler.post {
@@ -104,6 +117,17 @@ class StoperFagment : Fragment(), View.OnClickListener{
             }
             handler.postDelayed({runStoper(view)}, 1000)
         }
+    }
 
+    private fun showResults(dbHelper: DBHelper){
+        val tvBestTime = view?.findViewById<TextView>(R.id.tv_best_time)
+        val bestTime = dbHelper.getBestTime(trackId!!)
+        val strBestTime = bestTime.toString()
+        Log.d("DEBUG", "best time ${bestTime.toString()}")
+        tvBestTime?.text = bestTime.toString()
+    }
+
+    fun setTrackId(_trackId: Long?){
+        trackId = _trackId
     }
 }

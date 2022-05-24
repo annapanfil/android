@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction
 
 class RouteDetailFragment : Fragment() {
@@ -18,6 +17,7 @@ class RouteDetailFragment : Fragment() {
         if (savedInstanceState == null){
             val stoper = StoperFagment()
             val ft = childFragmentManager.beginTransaction()
+            stoper.setTrackId(routeId)
             ft.add(R.id.fl_stoper, stoper)
             ft.addToBackStack(null)
             ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
@@ -51,9 +51,9 @@ class RouteDetailFragment : Fragment() {
         outState.putLong("routeId", routeId!!)
     }
 
-    fun setRouteId(id: Long){
-        routeId = id
-        Log.d("DEBUG", "id in RouteDetailFrag $id $routeId")
+    fun setTrackId(trackId: Long){
+        Log.d("DEBUG", "id in RouteDetailFrag $trackId $routeId")
+        routeId = trackId
 
     }
 }
