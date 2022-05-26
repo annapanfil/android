@@ -10,12 +10,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 class StoperFagment : Fragment(), View.OnClickListener{
     private var seconds: Int = 0
     private var running: Boolean = false
     private var wasRunning: Boolean = false //czy działał przed wstrzymaniem aktywności
     private var trackId: Long? = null
+    private lateinit var recordAdapter: RecordAdapter
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +48,8 @@ class StoperFagment : Fragment(), View.OnClickListener{
         bStart.setOnClickListener(this)
         bReset.setOnClickListener(this)
         bSave.setOnClickListener(this)
+
+//        showResults(DBHelper(requireContext()))
 
         return layout
     }
@@ -101,6 +107,7 @@ class StoperFagment : Fragment(), View.OnClickListener{
         val dbHelper = DBHelper(requireContext())
         dbHelper.insertTime(trackId!!, seconds)
         showResults(dbHelper)
+        onClickReset()
     }
 
     private fun runStoper(view: View){
@@ -121,10 +128,23 @@ class StoperFagment : Fragment(), View.OnClickListener{
 
     private fun showResults(dbHelper: DBHelper){
         val tvBestTime = view?.findViewById<TextView>(R.id.tv_best_time)
-        val bestTime = dbHelper.getBestTime(trackId!!)
+        val bestTime = dbHelper.getBestTime(trackId!!).time
         val strBestTime = bestTime.toString()
         Log.d("DEBUG", "best time ${bestTime.toString()}")
         tvBestTime?.text = bestTime.toString()
+
+        val records: ArrayList<Record> = dbHelper.getTimes(trackId!!)
+
+        recordAdapter = RecordAdapter(mutableListOf())
+
+        val messageList = view?.findViewById<RecyclerView>(R.id.rv_records)
+        messageList?.adapter = recordAdapter
+        messageList?.layoutManager = LinearLayoutManager(requireContext())
+
+        //TODO: nie wyświetlają się wszystkie
+        for(record in records) {
+            recordAdapter.addRecord(record)
+        }
     }
 
     fun setTrackId(_trackId: Long?){

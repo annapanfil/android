@@ -7,4 +7,5 @@
     <string name="reset">[] zresetuj</string>
     <string name="save">zapisz czas</string>
     <string name="best_time">Najlepszy czas:</string>
+    <string name="track_times">Czasy na tej trasie</string>
 </resources>

@@ -11,14 +11,14 @@ import androidx.fragment.app.FragmentTransaction
 
 class RouteDetailFragment : Fragment() {
     private var routeId: Long? = null
+    private var stoper: StoperFagment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null){
-            val stoper = StoperFagment()
+            stoper = StoperFagment()
             val ft = childFragmentManager.beginTransaction()
-            stoper.setTrackId(routeId)
-            ft.add(R.id.fl_stoper, stoper)
+            ft.add(R.id.fl_stoper, stoper!!)
             ft.addToBackStack(null)
             ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
             ft.commit()
@@ -54,6 +54,6 @@ class RouteDetailFragment : Fragment() {
     fun setTrackId(trackId: Long){
         Log.d("DEBUG", "id in RouteDetailFrag $trackId $routeId")
         routeId = trackId
-
+        stoper!!.setTrackId(routeId)
     }
 }

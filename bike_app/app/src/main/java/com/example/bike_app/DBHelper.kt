@@ -4,10 +4,8 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import android.icu.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import java.util.*
 import kotlin.collections.ArrayList
 
 class DBHelper(context: Context):SQLiteOpenHelper(context,DATABASE_NAME,
@@ -87,6 +85,8 @@ class DBHelper(context: Context):SQLiteOpenHelper(context,DATABASE_NAME,
         db.close()
     }
 
+    // ------------------ GETTERS ------------------
+
     fun getDetails(id: Long): String{
         val selectQuery = "SELECT $COL_DESCR, $COL_TRACK FROM $TABLE_ROUTES WHERE $COL_ID=$id"
         val db = this.writableDatabase
@@ -133,18 +133,49 @@ class DBHelper(context: Context):SQLiteOpenHelper(context,DATABASE_NAME,
         return name
     }
 
-    fun getBestTime(trackId: Long): Int {
-        val selectQuery = "SELECT $COL_TIME FROM $TABLE_TIMES WHERE $COL_TRACK_ID = $trackId ORDER BY $COL_TIME ASC"
+    fun getBestTime(trackId: Long): Record {
+        val selectQuery = "SELECT $COL_TIME, $COL_DATE FROM $TABLE_TIMES WHERE $COL_TRACK_ID = $trackId ORDER BY $COL_TIME ASC"
 
-        var time: Int = 0
+        val time: Int
+        val date: String
+
         val db = this.writableDatabase
         val cursor =  db.rawQuery(selectQuery, null)
 
         if(cursor.moveToFirst()){
             time = cursor.getInt(cursor.getColumnIndexOrThrow(COL_TIME))
+            date = cursor.getString(cursor.getColumnIndexOrThrow(COL_DATE))
+        }
+        else{
+            time = -1
+            date = "brak rekordu"
+        }
+
+        cursor.close()
+        db.close()
+
+        val record = Record(time, date)
+        return record
+    }
+
+    fun getTimes(trackId: Long): ArrayList<Record>{
+        val selectQuery = "SELECT $COL_TIME, $COL_DATE FROM $TABLE_TIMES WHERE $COL_TRACK_ID = $trackId ORDER BY $COL_TIME ASC"
+
+        val records = ArrayList<Record>()
+
+        val db = this.writableDatabase
+        val cursor =  db.rawQuery(selectQuery, null)
+
+        if (cursor.moveToFirst()){
+            do{
+                val time: Int = cursor.getInt(cursor.getColumnIndexOrThrow(COL_TIME))
+                val date: String = cursor.getString(cursor.getColumnIndexOrThrow(COL_DATE))
+                records.add(Record(time, date))
+            }while(cursor.moveToNext())
         }
         cursor.close()
         db.close()
-        return time
+
+        return records
     }
 }
