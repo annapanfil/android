@@ -18,6 +18,7 @@ class RouteDetailFragment : Fragment() {
         if (savedInstanceState == null){
             stoper = StoperFagment()
             val ft = childFragmentManager.beginTransaction()
+            stoper?.setTrackId(routeId)
             ft.add(R.id.fl_stoper, stoper!!)
             ft.addToBackStack(null)
             ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
@@ -54,6 +55,6 @@ class RouteDetailFragment : Fragment() {
     fun setTrackId(trackId: Long){
         Log.d("DEBUG", "id in RouteDetailFrag $trackId $routeId")
         routeId = trackId
-        stoper!!.setTrackId(routeId)
+        stoper?.setTrackId(routeId)
     }
 }

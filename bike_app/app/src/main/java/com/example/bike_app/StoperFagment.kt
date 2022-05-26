@@ -141,10 +141,11 @@ class StoperFagment : Fragment(), View.OnClickListener{
         messageList?.adapter = recordAdapter
         messageList?.layoutManager = LinearLayoutManager(requireContext())
 
-        //TODO: nie wyświetlają się wszystkie
         for(record in records) {
             recordAdapter.addRecord(record)
         }
+
+        //TODO: dodać statystyki
     }
 
     fun setTrackId(_trackId: Long?){
