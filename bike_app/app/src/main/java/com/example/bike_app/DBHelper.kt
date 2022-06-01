@@ -21,6 +21,7 @@ class DBHelper(context: Context):SQLiteOpenHelper(context,DATABASE_NAME,
         private const val COL_NAME = "Name"
         private const val COL_DESCR = "Description"
         private const val COL_TRACK = "Track"
+        private const val COL_CATEGORY = "Category"
 
         private const val COL_TRACK_ID = "TrackId"
         private const val COL_TIME = "Time"
@@ -33,7 +34,8 @@ class DBHelper(context: Context):SQLiteOpenHelper(context,DATABASE_NAME,
                 "($COL_ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "$COL_NAME TEXT, " +
                 "$COL_DESCR TEXT," +
-                "$COL_TRACK TEXT)")
+                "$COL_TRACK TEXT," +
+                "$COL_CATEGORY TEXT)")
         db!!.execSQL(createTableQuery)
 
         createTableQuery = ("CREATE TABLE $TABLE_TIMES " +
@@ -60,12 +62,13 @@ class DBHelper(context: Context):SQLiteOpenHelper(context,DATABASE_NAME,
 
     // INSERT
 
-    fun insertTrack(name: String, description: String, track: String){
+    fun insertTrack(name: String, description: String, track: String, category: String){
         val db= this.writableDatabase
         val values = ContentValues()
         values.put(COL_NAME, name)
         values.put(COL_DESCR, description)
         values.put(COL_TRACK, track)
+        values.put(COL_CATEGORY, category)
 
         db.insertWithOnConflict(TABLE_ROUTES, null, values, SQLiteDatabase.CONFLICT_IGNORE)
         db.close()
@@ -101,8 +104,8 @@ class DBHelper(context: Context):SQLiteOpenHelper(context,DATABASE_NAME,
         return details
     }
 
-    fun getNames(): ArrayList<String>{
-        val selectQuery = "SELECT $COL_NAME FROM $TABLE_ROUTES"
+    fun getNames(category: String): ArrayList<String>{
+        val selectQuery = "SELECT $COL_NAME FROM $TABLE_ROUTES WHERE $COL_CATEGORY = \"$category\""
 
         val names = ArrayList<String>()
         val db = this.writableDatabase

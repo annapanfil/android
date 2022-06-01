@@ -11,7 +11,7 @@ import androidx.fragment.app.ListFragment
 import com.example.bike_app.DBHelper
 import com.example.bike_app.Listener
 
-class TrackListFragment : ListFragment() {
+class ShortTrackListFragment : ListFragment() {
     private var listener: Listener? = null
 
     override fun onCreateView(
@@ -19,7 +19,7 @@ class TrackListFragment : ListFragment() {
         savedInstanceState: Bundle?
     ): View? {
         val dbHelper = DBHelper(inflater.context)
-        val names = dbHelper.getNames()
+        val names = dbHelper.getNames("short")
         val adapter =
             ArrayAdapter<String>(inflater.context, android.R.layout.simple_list_item_1, names)
         listAdapter = adapter
