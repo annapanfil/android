@@ -12,6 +12,7 @@ import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
 import com.example.bike_app.activities.DetailActivity
 import com.example.bike_app.activities.RouteDetailFragment
+import com.google.android.material.tabs.TabLayout
 
 class MainActivity : AppCompatActivity(), Listener {
     fun addTracksData(){
@@ -38,6 +39,9 @@ class MainActivity : AppCompatActivity(), Listener {
         val pagerAdapter = SectionsPagerAdapter(supportFragmentManager)
         val pager = findViewById<ViewPager>(R.id.pager)
         pager.adapter = pagerAdapter
+
+        val tabLayout = findViewById<TabLayout>(R.id.tabs)
+        tabLayout.setupWithViewPager(pager)
     }
 
     override fun itemClicked(trackId: Long) {

@@ -5,13 +5,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     class="com.example.bike_app.activities.TrackListFragment"
     tools:context=".MainActivity"
-    android:layout_height="wrap_content"
-    android:layout_width="match_parent">
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="horizontal">
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/pager"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        <Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"/>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/design_default_color_background"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
 
 <!--    <fragment-->
 <!--        android:layout_width="match_parent"-->

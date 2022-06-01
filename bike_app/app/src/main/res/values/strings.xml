@@ -7,6 +7,9 @@
     <string name="best_time">Najlepszy czas:</string>
     <string name="track_times">Czasy na tej trasie:</string>
     <string name="lbl_details">Szczegóły trasy</string>
+    <string name="home_tab">Start</string>
+    <string name="kat1_tab">Kategoria 1</string>
+    <string name="kat2_tab">Kategoria 2</string>
 
     <string-array name="kategoria1">
         <item>Poz1</item>
