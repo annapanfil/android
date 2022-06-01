@@ -1,4 +1,4 @@
-package com.example.bike_app
+package com.example.bike_app.activities
 
 import android.os.Bundle
 import android.util.Log
@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.FragmentTransaction
+import com.example.bike_app.DBHelper
+import com.example.bike_app.R
 
 class RouteDetailFragment : Fragment() {
     private var routeId: Long? = null

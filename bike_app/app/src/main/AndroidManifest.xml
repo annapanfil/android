@@ -8,9 +8,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Bike_app">
+        android:theme="@style/App_theme">
+
         <activity
-            android:name=".DetailActivity"
+            android:name=".activities.DetailActivity"
+            android:label="@string/lbl_details"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

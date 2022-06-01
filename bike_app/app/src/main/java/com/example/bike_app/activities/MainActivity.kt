@@ -1,14 +1,19 @@
 package com.example.bike_app
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.FrameLayout
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
+import androidx.viewpager.widget.PagerAdapter
+import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.widget.ViewPager2
+import com.example.bike_app.activities.DetailActivity
+import com.example.bike_app.activities.RouteDetailFragment
 
-class MainActivity : AppCompatActivity(), Listener{
+class MainActivity : AppCompatActivity(), Listener {
     fun addTracksData(){
         //source: https://regionwielkopolska.pl/artykuly-turystyka/szlaki-w-okolicach-poznania-2/
         val dbhelper = DBHelper(this)
@@ -30,6 +35,9 @@ class MainActivity : AppCompatActivity(), Listener{
         super.onCreate(savedInstanceState)
         addTracksData()
         setContentView(R.layout.activity_main)
+        val pagerAdapter = SectionsPagerAdapter(supportFragmentManager)
+        val pager = findViewById<ViewPager>(R.id.pager)
+        pager.adapter = pagerAdapter
     }
 
     override fun itemClicked(trackId: Long) {

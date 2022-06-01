@@ -1,14 +1,15 @@
-package com.example.bike_app
+package com.example.bike_app.activities
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import androidx.fragment.app.ListFragment
+import com.example.bike_app.DBHelper
+import com.example.bike_app.Listener
 
 class TrackListFragment : ListFragment() {
     private var listener: Listener? = null

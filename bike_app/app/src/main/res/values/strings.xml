@@ -1,11 +1,22 @@
 <resources>
     <string name="app_name">bike_app</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="start"><![CDATA[> start]]></string>
     <string name="pause">|| Pauza</string>
     <string name="reset">[] zresetuj</string>
     <string name="save">zapisz czas</string>
     <string name="best_time">Najlepszy czas:</string>
-    <string name="track_times">Czasy na tej trasie</string>
+    <string name="track_times">Czasy na tej trasie:</string>
+    <string name="lbl_details">Szczegóły trasy</string>
+
+    <string-array name="kategoria1">
+        <item>Poz1</item>
+        <item>Poz2</item>
+        <item>Poz3</item>
+    </string-array>
+
+    <string-array name="kategoria2">
+        <item>Pozy1</item>
+        <item>Pozy2</item>
+        <item>Pozy3</item>
+    </string-array>
 </resources>

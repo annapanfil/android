@@ -1,4 +1,4 @@
-package com.example.bike_app
+package com.example.bike_app.activities
 
 import android.os.Bundle
 import android.os.Handler
@@ -12,6 +12,10 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.bike_app.DBHelper
+import com.example.bike_app.R
+import com.example.bike_app.Record
+import com.example.bike_app.RecordAdapter
 
 class StoperFagment : Fragment(), View.OnClickListener{
     private var seconds: Int = 0
