@@ -93,7 +93,7 @@ class DBHelper(context: Context):SQLiteOpenHelper(context,DATABASE_NAME,
     fun getDetails(id: Long): String{
         val selectQuery = "SELECT $COL_DESCR, $COL_TRACK FROM $TABLE_ROUTES WHERE $COL_ID=$id"
         val db = this.writableDatabase
-        var details: String = "Wrong id. No details here"
+        var details = "Wrong id. No details here"
 
         val cursor =  db.rawQuery(selectQuery, null)
         if(cursor.moveToFirst()){
@@ -104,21 +104,24 @@ class DBHelper(context: Context):SQLiteOpenHelper(context,DATABASE_NAME,
         return details
     }
 
-    fun getNames(category: String): ArrayList<String>{
-        val selectQuery = "SELECT $COL_NAME FROM $TABLE_ROUTES WHERE $COL_CATEGORY = \"$category\""
+    fun getNames(category: String): ArrayList<Route>{
+        val selectQuery = "SELECT $COL_ID, $COL_NAME FROM $TABLE_ROUTES WHERE $COL_CATEGORY = \"$category\""
 
-        val names = ArrayList<String>()
+        val routes = ArrayList<Route>()
         val db = this.writableDatabase
         val cursor =  db.rawQuery(selectQuery, null)
 
         if(cursor.moveToFirst()){
             do{
-                names.add(cursor.getString(cursor.getColumnIndexOrThrow(COL_NAME)))
+                val route = Route(
+                                cursor.getString(cursor.getColumnIndexOrThrow(COL_NAME)),
+                                cursor.getLong(cursor.getColumnIndexOrThrow(COL_ID)))
+                routes.add(route)
             }while(cursor.moveToNext())
         }
         cursor.close()
         db.close()
-        return names
+        return routes
     }
 
     fun getName(id: Long): String?{

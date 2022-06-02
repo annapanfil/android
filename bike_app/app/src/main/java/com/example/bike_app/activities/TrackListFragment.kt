@@ -1,6 +1,6 @@
 package com.example.bike_app.activities
 
-import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,30 +12,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.bike_app.*
 
 
-class ShortTrackListFragment : Fragment() {
+class TrackListFragment (val type: String="") : Fragment() {
     private var listener: Listener? = null
-
-    fun String.normalize(): String {
-        //source: http://tkadziolka.pl/blog/usuwanie_polskich_znakow.html
-        val original = arrayOf("Ą", "ą", "Ć", "ć", "Ę", "ę", "Ł", "ł", "Ń", "ń", "Ó", "ó", "Ś", "ś", "Ź", "ź", "Ż", "ż")
-        val normalized = arrayOf("A", "a", "C", "c", "E", "e", "L", "l", "N", "n", "O", "o", "S", "s", "Z", "z", "Z", "z")
-
-        return this.map { char ->
-            val index = original.indexOf(char.toString())
-            if (index >= 0) normalized[index] else char
-        }.joinToString("")
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val dbHelper = DBHelper(inflater.context)
-        val names = dbHelper.getNames("short")
-        val images =  IntArray(Route.routes.size)
-        Log.d("debug", "dynamic")
-        for (i in names.indices){
-            val name = names[i].lowercase().replace(" ", "_").normalize()
+        val routes = dbHelper.getNames(type)
+        val names = arrayOfNulls<String>(routes.size)
+        val images =  IntArray(routes.size)
+        for (i in routes.indices){
+            names[i] = routes[i].name
+            val name = names[i]!!.lowercase().replace(" ", "_").normalize()
             images[i] = resources.getIdentifier(name, "drawable", context?.packageName)
         }
 
@@ -46,14 +36,24 @@ class ShortTrackListFragment : Fragment() {
         val layoutManager = GridLayoutManager(activity, 2)
         routeRecycler.layoutManager = layoutManager
 
+        //onclick
+        adapter.listener = object : CaptionedImagesAdapter.Listener {
+            override fun onClick(position: Int) {
+                Log.d("debug", "click $position")
+                val intent = Intent(activity, DetailActivity::class.java)
+                intent.putExtra("route_id", routes[position].id)
+                activity!!.startActivity(intent)
+            }
+        }
+
         return routeRecycler
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        listener = context as Listener
-    }
-
+//    override fun onAttach(context: Context) {
+//        super.onAttach(context)
+//        listener = context as Listener
+//    }
+//
 //    override fun onListItemClick(l: ListView, v: View, position: Int, id: Long) {
 //        listener?.itemClicked(id)
 //    }

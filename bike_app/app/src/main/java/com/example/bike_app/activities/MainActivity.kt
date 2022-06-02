@@ -1,4 +1,4 @@
-package com.example.bike_app
+package com.example.bike_app.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,11 +7,11 @@ import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
-import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
-import androidx.viewpager2.widget.ViewPager2
-import com.example.bike_app.activities.DetailActivity
-import com.example.bike_app.activities.RouteDetailFragment
+import com.example.bike_app.DBHelper
+import com.example.bike_app.Listener
+import com.example.bike_app.R
+import com.example.bike_app.SectionsPagerAdapter
 import com.google.android.material.tabs.TabLayout
 
 class MainActivity : AppCompatActivity(), Listener {

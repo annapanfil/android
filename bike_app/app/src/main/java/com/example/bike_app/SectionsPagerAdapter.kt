@@ -1,13 +1,7 @@
-package com.example.bike_app;
-import android.content.res.Resources
-import android.provider.Settings.Global.getString
-import androidx.core.content.res.TypedArrayUtils.getResourceId
-import androidx.core.content.res.TypedArrayUtils.getText
+package com.example.bike_app
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import androidx.fragment.app.ListFragment
-import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.bike_app.activities.*
 
 class SectionsPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
@@ -18,11 +12,11 @@ class SectionsPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment {
         when(position){
-            0 -> return mainTabFragment()
-            1 -> return LongTrackListFragment()
-            2 -> return ShortTrackListFragment()
+            0 -> return MainTabFragment()
+            1 -> return TrackListFragment("long")
+            2 -> return TrackListFragment("short")
         }
-        return mainTabFragment() //TODO: coś sensownego
+        return TrackListFragment("")
     }
 
     override fun getPageTitle(position: Int): String{

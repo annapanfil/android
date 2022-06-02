@@ -12,6 +12,7 @@
     <string name="kat2_tab">Kategoria 2</string>
     <string name="welcome">Witaj w aplikacji z trasami rowerowymi!</string>
     <string name="track_img">zdjęcie trasy</string>
+    <string name="route_img">zdjęcie trasy</string>
 
     <string-array name="kategoria1">
         <item>Poz1</item>

@@ -7,10 +7,14 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+            <!--            <include-->
+            <!--                layout="@layout/toolbar_main"-->
+            <!--                android:id="@+id/toolbar" />-->
 
             <TextView
                 android:id="@+id/tv_name"
@@ -37,7 +41,11 @@
                 android:layout_height="2dp"
                 android:background="#c0c0c0"/>
 
-
+            <ImageView
+                android:id="@+id/iv_route_image"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:adjustViewBounds="true" />
             <FrameLayout
                 android:id="@+id/fl_stoper"
                 android:layout_width="match_parent"

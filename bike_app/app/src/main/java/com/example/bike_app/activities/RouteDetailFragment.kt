@@ -6,22 +6,24 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentTransaction
 import com.example.bike_app.DBHelper
 import com.example.bike_app.R
 
 class RouteDetailFragment : Fragment() {
     private var routeId: Long? = null
-    private var stoper: StoperFagment? = null
+    private var stopper: StoperFagment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null){
-            stoper = StoperFagment()
+            stopper = StoperFagment()
             val ft = childFragmentManager.beginTransaction()
-            stoper?.setTrackId(routeId)
-            ft.add(R.id.fl_stoper, stoper!!)
+            stopper?.setTrackId(routeId)
+            ft.add(R.id.fl_stoper, stopper!!)
             ft.addToBackStack(null)
             ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
             ft.commit()
@@ -43,9 +45,18 @@ class RouteDetailFragment : Fragment() {
         if (rdView != null){
             val tvName = rdView.findViewById<TextView>(R.id.tv_name)
             val tvDetails = rdView.findViewById<TextView>(R.id.tv_details)
+            val ivImage = rdView.findViewById<ImageView>(R.id.iv_route_image)
+
             val dbHelper = DBHelper(rdView.context)
-            tvName.text = dbHelper.getName(routeId as Long)
+            val routeName = dbHelper.getName(routeId as Long)
+            tvName.text = routeName
             tvDetails.text = dbHelper.getDetails(routeId as Long)
+
+            val nameNormalized = routeName?.lowercase()?.replace(" ", "_")?.normalize()
+            val imageId = resources.getIdentifier(nameNormalized, "drawable", context?.packageName)
+
+            ivImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), imageId))
+            ivImage.contentDescription = getString(R.string.route_img) + routeName
         }
     }
 
@@ -57,6 +68,6 @@ class RouteDetailFragment : Fragment() {
     fun setTrackId(trackId: Long){
         Log.d("DEBUG", "id in RouteDetailFrag $trackId $routeId")
         routeId = trackId
-        stoper?.setTrackId(routeId)
+        stopper?.setTrackId(routeId)
     }
 }
