@@ -10,7 +10,7 @@ import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 
-class CaptionedImagesAdapter(val captions: Array<String?>, val imageIds: IntArray): RecyclerView.Adapter<CaptionedImagesAdapter.ViewHolder>() {
+class CaptionedImagesAdapter(val captions: ArrayList<String>, val imageIds: IntArray): RecyclerView.Adapter<CaptionedImagesAdapter.ViewHolder>() {
     class ViewHolder(val cardView: CardView) : RecyclerView.ViewHolder(cardView){
     }
 
