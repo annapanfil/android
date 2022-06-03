@@ -1,4 +1,5 @@
 package com.example.bike_app
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
@@ -11,12 +12,15 @@ class SectionsPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
     }
 
     override fun getItem(position: Int): Fragment {
+        Log.d("Debug", "getitem" +
+                " $position")
         when(position){
             0 -> return MainTabFragment()
             1 -> return TrackListFragment("long")
             2 -> return TrackListFragment("short")
         }
-        return TrackListFragment("")
+        Log.d("Debug", "position $position")
+        return TrackListFragment("a")
     }
 
     override fun getPageTitle(position: Int): String{

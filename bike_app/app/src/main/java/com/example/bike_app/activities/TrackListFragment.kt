@@ -12,8 +12,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.bike_app.*
 
 
-class TrackListFragment (val type: String="") : Fragment() {
-    private var listener: Listener? = null
+class TrackListFragment (var type: String="") : Fragment() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if (savedInstanceState != null){
+            type = savedInstanceState.getString("type", "")
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,13 +54,9 @@ class TrackListFragment (val type: String="") : Fragment() {
         return routeRecycler
     }
 
-//    override fun onAttach(context: Context) {
-//        super.onAttach(context)
-//        listener = context as Listener
-//    }
-//
-//    override fun onListItemClick(l: ListView, v: View, position: Int, id: Long) {
-//        listener?.itemClicked(id)
-//    }
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString("type", type)
+    }
 
 }

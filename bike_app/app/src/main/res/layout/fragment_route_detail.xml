@@ -4,55 +4,63 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.RouteDetailFragment">
-    <ScrollView
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
+        android:layout_height="wrap_content">
+        <ScrollView
             android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <!--            <include-->
+                <!--                layout="@layout/toolbar_main"-->
+                <!--                android:id="@+id/toolbar" />-->
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="@dimen/normalMargin"
+                    android:text="Name"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                <TextView
+                    android:id="@+id/tv_details"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/normalMargin"
+                    android:layout_marginEnd="@dimen/normalMargin"
+                    android:text="@string/details"
+                    android:justificationMode="inter_word"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                <View
+                    android:layout_margin="@dimen/normalMargin"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="#c0c0c0"/>
+
+                <ImageView
+                    android:id="@+id/iv_route_image"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:adjustViewBounds="true" />
+            </LinearLayout>
+        </ScrollView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_stats"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <!--            <include-->
-            <!--                layout="@layout/toolbar_main"-->
-            <!--                android:id="@+id/toolbar" />-->
+            android:layout_gravity="end|bottom"
+            android:layout_margin="@dimen/smallMargin"
+            android:src="@drawable/ic_insights"
+            android:contentDescription="@string/stats" />
 
-            <TextView
-                android:id="@+id/tv_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_margin="@dimen/normalMargin"
-                android:text="Name"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-
-            <TextView
-                android:id="@+id/tv_details"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/normalMargin"
-                android:layout_marginEnd="@dimen/normalMargin"
-                android:text="Details"
-                android:justificationMode="inter_word"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-
-            <View
-                android:layout_margin="@dimen/normalMargin"
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="#c0c0c0"/>
-
-            <ImageView
-                android:id="@+id/iv_route_image"
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:adjustViewBounds="true" />
-            <FrameLayout
-                android:id="@+id/fl_stoper"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-    </ScrollView>
-
-
-
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </FrameLayout>
