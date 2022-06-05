@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<fragment
-    android:id="@+id/f_details"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    class = "com.example.bike_app.activities.RouteDetailFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.DetailActivity" />
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_layout" />
+
+    <fragment
+        android:id="@+id/f_details"
+        class="com.example.bike_app.activities.RouteDetailFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activities.DetailActivity" />
+</LinearLayout>

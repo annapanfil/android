@@ -8,11 +8,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/App_theme">
+        android:theme="@style/App_theme.NoActionBar">
         <activity
             android:name=".activities.StopperActivity"
             android:exported="false"
             android:label="@string/title_activity_stopper"
+            android:parentActivityName=".activities.DetailActivity"
             android:theme="@style/App_theme.NoActionBar" />
         <activity
             android:name=".activities.DetailActivity"

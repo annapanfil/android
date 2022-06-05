@@ -6,7 +6,7 @@
         <entry key="app/src/main/res/layout-large/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout-large/fragment_route_detail.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_detail.xml" value="0.2884963768115942" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.2884963768115942" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_stopper.xml" value="0.16540020263424518" />
         <entry key="app/src/main/res/layout/activity_temp.xml" value="0.17864583333333334" />
         <entry key="app/src/main/res/layout/activity_temp_acticvity.xml" value="0.35260416666666666" />
@@ -19,6 +19,7 @@
         <entry key="app/src/main/res/layout/layout.xml" value="0.35260416666666666" />
         <entry key="app/src/main/res/layout/main_tab_fragment.xml" value="0.17864583333333334" />
         <entry key="app/src/main/res/layout/short_track_list.xml" value="0.35260416666666666" />
+        <entry key="app/src/main/res/layout/toolbar_layout.xml" value="0.12273550724637682" />
       </map>
     </option>
   </component>

@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<fragment
-    android:id="@+id/f_stopper"
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    class = "com.example.bike_app.activities.StoperFagment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.StopperActivity" />
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/toolbar_layout"
+        android:id="@+id/toolbar"/>
+
+    <fragment
+        android:id="@+id/f_stopper"
+        class = "com.example.bike_app.activities.StoperFagment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activities.StopperActivity" />
+</LinearLayout>

@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.bike_app.*
 
 
-class TrackListFragment (var type: String="") : Fragment() {
+class TrackListFragment (private var type: String="") : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState != null){

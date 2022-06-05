@@ -9,14 +9,19 @@
     android:layout_width="match_parent"
     android:orientation="horizontal">
 
+
+
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-        <Toolbar
+        <include
             android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"/>
+            layout="@layout/toolbar_layout" />
+<!--        <Toolbar-->
+<!--            android:id="@+id/tabs_toolbar"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="?attr/actionBarSize"/>-->
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"

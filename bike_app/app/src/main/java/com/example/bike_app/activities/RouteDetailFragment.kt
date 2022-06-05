@@ -55,7 +55,7 @@ class RouteDetailFragment : Fragment() {
             tvName.text = routeName
             tvDetails.text = dbHelper.getDetails(routeId as Long)
 
-            val nameNormalized = routeName?.lowercase()?.replace(" ", "_")?.normalize()
+            val nameNormalized = routeName!!.lowercase().replace(" ", "_").normalize()
             val imageId = resources.getIdentifier(nameNormalized, "drawable", context?.packageName)
 
             ivImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), imageId))

@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.FragmentTransaction
 import androidx.viewpager.widget.ViewPager
 import com.example.bike_app.DBHelper
@@ -40,8 +41,12 @@ class MainActivity : AppCompatActivity(), Listener {
         super.onCreate(savedInstanceState)
         addTracksData()
         setContentView(R.layout.activity_main)
+
         val pagerAdapter = SectionsPagerAdapter(supportFragmentManager)
         val pager = findViewById<ViewPager>(R.id.pager)
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+
+        setSupportActionBar(toolbar)
         pager.adapter = pagerAdapter
 
         val tabLayout = findViewById<TabLayout>(R.id.tabs)
