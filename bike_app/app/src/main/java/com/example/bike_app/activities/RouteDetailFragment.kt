@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.FragmentTransaction
 import com.example.bike_app.DBHelper
 import com.example.bike_app.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -21,16 +20,7 @@ class RouteDetailFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (savedInstanceState == null){
-//            stopper = StoperFagment()
-//            val ft = childFragmentManager.beginTransaction()
-//            stopper?.setTrackId(routeId)
-//            ft.add(R.id.fl_stoper, stopper!!)
-//            ft.addToBackStack(null)
-//            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-//            ft.commit()
-        }
-        else{
+        if (savedInstanceState != null){
             routeId = savedInstanceState.getLong("routeId")
         }
     }
@@ -61,7 +51,7 @@ class RouteDetailFragment : Fragment() {
             ivImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), imageId))
             ivImage.contentDescription = getString(R.string.route_img) + routeName
 
-            fabStats.setOnClickListener(){
+            fabStats.setOnClickListener{
                 Log.d("debug", "click stats")
                 val intent = Intent(activity, StopperActivity::class.java)
                 intent.putExtra("route_id", routeId)

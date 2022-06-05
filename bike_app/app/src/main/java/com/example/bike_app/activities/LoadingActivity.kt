@@ -55,8 +55,8 @@ class LoadingActivity : AppCompatActivity() {
         sunsetSkyAnimator.setEvaluator(ArgbEvaluator())
 
         val nightSkyAnimator = ObjectAnimator
-                .ofInt(mSkyView!!, "backgroundColor", mSunsetSkyColor!!, mNightSkyColor!!)
-            .setDuration(500);
+            .ofInt(mSkyView!!, "backgroundColor", mSunsetSkyColor!!, mNightSkyColor!!)
+            .setDuration(500)
         nightSkyAnimator.setEvaluator(ArgbEvaluator())
 
         val animatorSet = AnimatorSet()

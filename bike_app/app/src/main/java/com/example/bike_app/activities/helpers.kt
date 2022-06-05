@@ -10,8 +10,3 @@ fun String.normalize(): String {
         if (index >= 0) normalized[index] else char
     }.joinToString("")
 }
-
-//fun get_image_by_trackname(trackname: String, context: Context?){
-//    val name = trackname.lowercase().replace(" ", "_").normalize()
-//    return resources.getIdentifier(name, "drawable", context?.packageName)
-//}

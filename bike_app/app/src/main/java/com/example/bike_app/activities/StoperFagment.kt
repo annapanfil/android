@@ -133,8 +133,7 @@ class StoperFagment : Fragment(), View.OnClickListener{
     private fun showResults(dbHelper: DBHelper){
         val tvBestTime = view?.findViewById<TextView>(R.id.tv_best_time)
         val bestTime = dbHelper.getBestTime(trackId!!).time
-        val strBestTime = bestTime.toString()
-        Log.d("DEBUG", "best time ${bestTime.toString()}")
+        Log.d("DEBUG", "best time $bestTime")
         tvBestTime?.text = bestTime.toString()
 
         val records: ArrayList<Record> = dbHelper.getTimes(trackId!!)
@@ -148,8 +147,6 @@ class StoperFagment : Fragment(), View.OnClickListener{
         for(record in records) {
             recordAdapter.addRecord(record)
         }
-
-        //TODO: dodać statystyki
     }
 
     fun setTrackId(_trackId: Long?){

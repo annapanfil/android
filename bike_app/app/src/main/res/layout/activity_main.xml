@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     class="com.example.bike_app.activities.TrackListFragment"
     tools:context=".activities.MainActivity"
@@ -18,10 +17,6 @@
         <include
             android:id="@+id/toolbar"
             layout="@layout/toolbar_layout" />
-<!--        <Toolbar-->
-<!--            android:id="@+id/tabs_toolbar"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="?attr/actionBarSize"/>-->
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
@@ -35,10 +30,4 @@
             android:background="@color/design_default_color_background"/>
 
     </com.google.android.material.appbar.AppBarLayout>
-
-<!--    <fragment-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"/>-->
-
-
 </LinearLayout>
