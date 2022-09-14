@@ -3,8 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_patient_card.xml" value="0.33" />
+        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.335" />
+        <entry key="app/src/main/res/drawable/ic_baseline_done_24.xml" value="0.187" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.335" />
+        <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.187" />
+        <entry key="app/src/main/res/layout-v26/activity_add_med.xml" value="0.17864583333333334" />
+        <entry key="app/src/main/res/layout/activity_add_med.xml" value="0.30035026269702275" />
+        <entry key="app/src/main/res/layout/activity_add_med_to_list.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_patient_card.xml" value="0.12903225806451613" />
+        <entry key="app/src/main/res/layout/item_dose.xml" value="0.175" />
+        <entry key="app/src/main/res/layout/item_drug.xml" value="0.35260416666666666" />
+        <entry key="app/src/main/res/layout/item_patient_card.xml" value="0.37135416666666665" />
+        <entry key="app/src/main/res/layout/item_patient_card_med.xml" value="0.35260416666666666" />
       </map>
     </option>
   </component>

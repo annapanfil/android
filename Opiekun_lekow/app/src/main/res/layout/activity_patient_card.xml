@@ -26,44 +26,19 @@
             android:layout_gravity="center"
             android:layout_margin="@dimen/margin"/>
 
-        <androidx.recyclerview.widget.RecyclerView
+        <Space
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_weight="4"/>
 
-        </androidx.recyclerview.widget.RecyclerView>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_add_drug"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/floatingActionButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin"
-                android:clickable="true"
-                android:focusable="true"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:srcCompat="@android:drawable/ic_menu_add"
-                tools:layout_editor_absoluteX="177dp"
-                android:contentDescription="@string/add_med" />
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/floatingActionButton2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                android:layout_marginEnd="@dimen/margin"
-                android:layout_marginBottom="@dimen/margin"
-                android:focusable="true"
-                android:clickable="true"
-                app:srcCompat="@android:drawable/ic_menu_share"
-                android:contentDescription="@string/share" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            app:srcCompat="@android:drawable/ic_menu_add"
+            android:layout_marginBottom="@dimen/margin"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
