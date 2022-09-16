@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 private lateinit var doseAdapter: DoseAdapter
+private lateinit var medAdapter: MedAdapter
 
 class PatientCard : AppCompatActivity() {
 
@@ -37,15 +38,17 @@ class PatientCard : AppCompatActivity() {
         val tvName = findViewById<TextView>(R.id.tv_name)
         tvName.text = "Leonardo Da Vinci"
 
-        doseAdapter = DoseAdapter(mutableListOf())
+        medAdapter = MedAdapter(mutableListOf())
 
-        val doseList = findViewById<RecyclerView>(R.id.rv_doses)
-        doseList.adapter = doseAdapter
-        doseList.layoutManager = LinearLayoutManager(this)
+        val medList = findViewById<RecyclerView>(R.id.rv_meds)
+        medList.adapter = medAdapter
+        medList.layoutManager = LinearLayoutManager(this)
 
-        for(dose in doses) {
-            doseAdapter.addDose(dose)
+        for(med in meds) {
+            medAdapter.addMed(med)
         }
+
+
 
 //        postAdapter.onItemClick = {post -> onPostClick(post)}
 

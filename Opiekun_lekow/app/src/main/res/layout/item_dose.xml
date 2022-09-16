@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="10sp"
-        android:layout_marginLeft="@dimen/margin"
+        android:layout_marginLeft="@dimen/marginSmall"
         android:text="12:00"
         android:textColor="@color/lightText"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,6 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="10sp"
+        android:layout_marginLeft="@dimen/marginSmall"
         android:text="2"
         android:textColor="@color/lightText"
         app:layout_constraintStart_toEndOf="@id/tv_hour"
@@ -36,6 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="10sp"
+        android:layout_marginRight="@dimen/marginSmall"
         android:text="przed posiłkiem"
         android:textColor="@color/lightText"
         app:layout_constraintEnd_toStartOf="@id/chb_given"
@@ -45,7 +47,7 @@
         android:id="@+id/chb_given"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/margin"
+        android:padding="@dimen/marginSmall"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
