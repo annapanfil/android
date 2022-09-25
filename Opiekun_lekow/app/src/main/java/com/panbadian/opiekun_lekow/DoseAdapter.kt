@@ -17,7 +17,7 @@ class DoseAdapter (
         val chbGiven = itemView.findViewById<CheckBox>(R.id.chb_given)
 
         fun bind(dose: Dose){
-            tvHour.text = dose.hour
+//            tvHour.text = dose.hour
             tvQuantity.text = dose.quantity.toString()
             tvNotes.text = dose.notes
             chbGiven.isChecked = dose.given

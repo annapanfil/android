@@ -1,14 +1,9 @@
 package com.panbadian.opiekun_lekow
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.ImageButton
-import android.widget.TextView
-import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.appcompat.app.AppCompatActivity
+import com.example.bike_app.DBHelper
 
 private lateinit var doseAdapter: DoseAdapter
 private lateinit var medAdapter: MedAdapter
@@ -27,6 +22,11 @@ class PatientCard : AppCompatActivity() {
         setContentView(R.layout.activity_patient_card)
         Log.d("Hello", "It is created")
 
+        val dbHelper = DBHelper(this)
+        val dbOrm = DatabaseOrm()
+        dbOrm.addMedicine(Med(0, "Hascovir"))
+        dbOrm.test()
+
 //        val userId = intent.getIntExtra("id", -3)
 //        val userName = intent.getStringExtra("name")
 
@@ -35,18 +35,18 @@ class PatientCard : AppCompatActivity() {
 //        val todoArray = dbHelper.getTodos(userId)
 //        val postArray = dbHelper.getPosts(userId)
 
-        val tvName = findViewById<TextView>(R.id.tv_name)
-        tvName.text = "Leonardo Da Vinci"
+//        val tvName = findViewById<TextView>(R.id.tv_name)
+//        tvName.text = "Leonardo Da Vinci"
+//
+//        medAdapter = MedAdapter(mutableListOf())
+//
+//        val medList = findViewById<RecyclerView>(R.id.rv_meds)
+//        medList.adapter = medAdapter
+//        medList.layoutManager = LinearLayoutManager(this)
 
-        medAdapter = MedAdapter(mutableListOf())
-
-        val medList = findViewById<RecyclerView>(R.id.rv_meds)
-        medList.adapter = medAdapter
-        medList.layoutManager = LinearLayoutManager(this)
-
-        for(med in meds) {
-            medAdapter.addMed(med)
-        }
+//        for(med in meds) {
+//            medAdapter.addMed(med)
+//        }
 
 
 

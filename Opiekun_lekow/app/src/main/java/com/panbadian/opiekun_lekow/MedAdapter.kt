@@ -1,14 +1,11 @@
 package com.panbadian.opiekun_lekow
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.internal.ContextUtils.getActivity
 
 class MedAdapter (
     private val register: MutableList<Med>
@@ -22,15 +19,15 @@ class MedAdapter (
 
         fun bind(med: Med, ){
             tvMedName.text = med.name
-            tvDuration.text = med.duration
+//            tvDuration.text = med.duration
 
             val doseAdapter = DoseAdapter(mutableListOf())
             doseList.adapter = doseAdapter
             doseList.layoutManager = LinearLayoutManager(itemView.context)
 
-            for(dose in med.dosages) {
-                doseAdapter.addDose(dose)
-            }
+//            for(dose in med.dosages) {
+//                doseAdapter.addDose(dose)
+//            }
         }
     }
 
