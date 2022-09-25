@@ -1,18 +1,15 @@
 package com.panbadian.opiekun_lekow
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.internal.ContextUtils.getActivity
 
-class MedAdapter (
-    private val register: MutableList<Med>
-): RecyclerView.Adapter<MedAdapter.RankingViewHolder>() {
+class PrescriptionAdapter (
+    private val register: MutableList<Prescription>
+): RecyclerView.Adapter<PrescriptionAdapter.RankingViewHolder>() {
 
     inner class RankingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val tvMedName = itemView.findViewById<TextView>(R.id.tv_med_name)
@@ -20,15 +17,15 @@ class MedAdapter (
         val tvDuration = itemView.findViewById<TextView>(R.id.tv_duration)
         val doseList = itemView.findViewById<RecyclerView>(R.id.rv_doses)
 
-        fun bind(med: Med, ){
-            tvMedName.text = med.name
-            tvDuration.text = med.duration
+        fun bind(prescription: Prescription){
+            tvMedName.text = prescription.medicine
+            tvDuration.text = prescription.date_from + " - " + prescription.date_to
 
             val doseAdapter = DoseAdapter(mutableListOf())
             doseList.adapter = doseAdapter
             doseList.layoutManager = LinearLayoutManager(itemView.context)
 
-            for(dose in med.dosages) {
+            for(dose in prescription.dosages) {
                 doseAdapter.addDose(dose)
             }
         }
@@ -40,13 +37,13 @@ class MedAdapter (
         )
     }
 
-    fun addMed(med: Med) {
-        register.add(med)
+    fun addMed(prescription: Prescription) {
+        register.add(prescription)
     }
 
     override fun onBindViewHolder(holder: RankingViewHolder, position: Int) {
-        val med = register[position]
-        holder.bind(med)
+        val prescription = register[position]
+        holder.bind(prescription)
     }
 
     override fun getItemCount(): Int {
