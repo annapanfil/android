@@ -1,6 +1,7 @@
 package com.panbadian.opiekun_lekow
 
 class Dose(
+    var id: Int,
     var hour: String,
     var quantity: Double,
     var notes: String,
@@ -20,6 +21,7 @@ class Patient(
 )
 
 class Prescription(
+    var id: Int,
     var medicine: String,
     var date_from: String,
     var date_to: String,
@@ -27,6 +29,7 @@ class Prescription(
 )
 
 class PrescriptionDB(
+    var id: Int,
     var patient_pesel: String,
     var medicine: Int,
     var date_from: String,

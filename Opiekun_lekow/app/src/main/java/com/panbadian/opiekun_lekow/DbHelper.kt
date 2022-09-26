@@ -1,11 +1,10 @@
-package com.example.bike_app
+package com.panbadian.opiekun_lekow
 
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
-import com.panbadian.opiekun_lekow.*
 
 class DBHelper(context: Context): SQLiteOpenHelper(context,DATABASE_NAME,
     null, DATABASE_VER) {
@@ -115,11 +114,11 @@ class DBHelper(context: Context): SQLiteOpenHelper(context,DATABASE_NAME,
         db.close()
     }
 
-    fun insertDose(prescr: Int, id: Int, dose: Dose) {
+    fun insertDose(prescr: Int, dose: Dose) {
         val db = this.writableDatabase
         val values = ContentValues()
         values.put(COL_PRESCRIPTION, prescr)
-        values.put(COL_ID, id)
+        values.put(COL_ID, dose.id)
         values.put(COL_HOUR, dose.hour)
         values.put(COL_NOTES, dose.notes)
         values.put(COL_QUANT, dose.quantity)
@@ -129,10 +128,10 @@ class DBHelper(context: Context): SQLiteOpenHelper(context,DATABASE_NAME,
         db.close()
     }
 
-    fun insertPrescription(id: Int, prescr: PrescriptionDB) {
+    fun insertPrescription(prescr: PrescriptionDB) {
         val db = this.writableDatabase
         val values = ContentValues()
-        values.put(COL_ID, id)
+        values.put(COL_ID, prescr.id)
         values.put(COL_PATIENT, prescr.patient_pesel)
         values.put(COL_MED, prescr.medicine)
         values.put(COL_FROM, prescr.date_from)
@@ -211,21 +210,23 @@ class DBHelper(context: Context): SQLiteOpenHelper(context,DATABASE_NAME,
         cursor.close()
 
         for (med in meds) {
-            //TODO: fix
             val doses = ArrayList<Dose>()
             selectQuery = "SELECT * FROM $TABLE_DOSES JOIN $TABLE_PRESCRIPTIONS ON ${TABLE_DOSES}.${COL_PRESCRIPTION} = ${TABLE_PRESCRIPTIONS}.${COL_ID} WHERE $COL_PATIENT = \"$pesel\" AND $COL_MED = ${med.id}"
             Log.d("debug", selectQuery)
             cursor = db.rawQuery(selectQuery, null)
-            var date_to: String = ""
-            var date_from: String = ""
+            var dateTo: String = ""
+            var dateFrom: String = ""
+            var id: Int = -1
 
             if (cursor.moveToFirst()) {
-                date_from = cursor.getString(cursor.getColumnIndexOrThrow(COL_FROM))
-                date_to = cursor.getString(cursor.getColumnIndexOrThrow(COL_TO))
+                id = cursor.getInt(cursor.getColumnIndexOrThrow(COL_ID))
+                dateFrom = cursor.getString(cursor.getColumnIndexOrThrow(COL_FROM))
+                dateTo = cursor.getString(cursor.getColumnIndexOrThrow(COL_TO))
                 Log.d("debug", "jest 1")
                 do{
                     doses.add(
                         Dose(
+                            cursor.getInt(cursor.getColumnIndexOrThrow(COL_ID)),
                             cursor.getString(cursor.getColumnIndexOrThrow(COL_HOUR)),
                             cursor.getDouble(cursor.getColumnIndexOrThrow(COL_QUANT)),
                             cursor.getString(cursor.getColumnIndexOrThrow(COL_NOTES)),
@@ -235,12 +236,25 @@ class DBHelper(context: Context): SQLiteOpenHelper(context,DATABASE_NAME,
                 }while(cursor.moveToNext())
             }
             prescriptions.add(Prescription(
-                med.name, date_from, date_to, doses)
+                id, med.name, dateFrom, dateTo, doses)
             )
             cursor.close()
         }
 
         db.close()
         return prescriptions
+    }
+
+    fun changeGiven(doseId: Int, status: Boolean)
+    {
+        val db = this.writableDatabase
+        db.execSQL("UPDATE $TABLE_DOSES SET $COL_GIVEN = $status WHERE $COL_ID = $doseId")
+        db.close()
+    }
+
+    fun deletePrescription(id: Int){
+        val db = this.writableDatabase
+        db.execSQL("DELETE FROM $TABLE_PRESCRIPTIONS WHERE $COL_ID = $id")
+        db.close()
     }
 }

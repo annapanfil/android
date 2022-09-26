@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OpiekunLeków">
         <activity
-            android:name=".ActivityAddMedToList"
+            android:name=".ActivityAddPrescription"
             android:exported="false" />
         <activity
             android:name=".ActivityAddMed"
