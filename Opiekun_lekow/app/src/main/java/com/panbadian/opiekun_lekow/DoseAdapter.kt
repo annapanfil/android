@@ -1,5 +1,6 @@
 package com.panbadian.opiekun_lekow
 
+import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class DoseAdapter (
-    private val register: MutableList<Dose>
+    private val doseList: MutableList<Dose>
 ): RecyclerView.Adapter<DoseAdapter.RankingViewHolder>() {
 
     var onItemClick: ((Dose)-> Unit)? = null
@@ -22,7 +23,7 @@ class DoseAdapter (
 
         init{
             itemView.setOnClickListener{
-                onItemClick?.invoke(register[adapterPosition])
+                onItemClick?.invoke(doseList[adapterPosition])
             }
         }
 
@@ -50,15 +51,23 @@ class DoseAdapter (
     }
 
     fun addDose(dose: Dose) {
-        register.add(dose)
+        doseList.add(dose)
+    }
+
+    fun removeDose(position: Int, context: Context) {
+        // delete dose from db and list
+        val dbHelper = DBHelper(context)
+        dbHelper.deleteDose(doseList[position].id)
+        doseList.removeAt(position)
+        notifyItemRemoved(position)
     }
 
     override fun onBindViewHolder(holder: RankingViewHolder, position: Int) {
-        val dose = register[position]
+        val dose = doseList[position]
         holder.bind(dose)
     }
 
     override fun getItemCount(): Int {
-        return register.size
+        return doseList.size
     }
 }

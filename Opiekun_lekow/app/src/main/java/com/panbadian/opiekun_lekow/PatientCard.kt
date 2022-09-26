@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-private lateinit var doseAdapter: DoseAdapter
 private lateinit var prescriptionAdapter: PrescriptionAdapter
 
 fun insertData(context: Context){
@@ -72,10 +71,10 @@ class PatientCard : AppCompatActivity() {
         val tvName = findViewById<TextView>(R.id.tv_name)
         tvName.text = patient.name + " " + patient.surname
 
-        val medList = findViewById<RecyclerView>(R.id.rv_meds)
+        val rvMeds = findViewById<RecyclerView>(R.id.rv_meds)
         prescriptionAdapter = PrescriptionAdapter(mutableListOf())
-        medList.adapter = prescriptionAdapter
-        medList.layoutManager = LinearLayoutManager(this)
+        rvMeds.adapter = prescriptionAdapter
+        rvMeds.layoutManager = LinearLayoutManager(this)
         prescriptionAdapter.onItemClick = { prescription -> onPrescriptionClick(prescription) }
 
         for (prescr in prescriptions) {

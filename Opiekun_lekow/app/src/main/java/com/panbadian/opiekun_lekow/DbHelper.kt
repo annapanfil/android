@@ -247,14 +247,24 @@ class DBHelper(context: Context): SQLiteOpenHelper(context,DATABASE_NAME,
 
     fun changeGiven(doseId: Int, status: Boolean)
     {
-        val db = this.writableDatabase
-        db.execSQL("UPDATE $TABLE_DOSES SET $COL_GIVEN = $status WHERE $COL_ID = $doseId")
-        db.close()
+        val db = this.writableDatabase.apply {
+            execSQL("UPDATE $TABLE_DOSES SET $COL_GIVEN = $status WHERE $COL_ID = $doseId")
+            close()
+        }
+    }
+
+    private fun deleteById(table: String, id: Int){
+        val db = this.writableDatabase.apply {
+            execSQL("DELETE FROM $table WHERE $COL_ID = $id")
+            close()
+        }
     }
 
     fun deletePrescription(id: Int){
-        val db = this.writableDatabase
-        db.execSQL("DELETE FROM $TABLE_PRESCRIPTIONS WHERE $COL_ID = $id")
-        db.close()
+        deleteById(TABLE_PRESCRIPTIONS, id)
+    }
+
+    fun deleteDose(id: Int){
+        deleteById(TABLE_DOSES, id)
     }
 }

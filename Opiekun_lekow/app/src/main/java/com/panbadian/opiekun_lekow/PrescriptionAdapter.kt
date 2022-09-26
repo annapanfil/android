@@ -5,26 +5,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class PrescriptionAdapter (
-    private val register: MutableList<Prescription>
+    private val MedList: MutableList<Prescription>
 ): RecyclerView.Adapter<PrescriptionAdapter.RankingViewHolder>() {
 
     var onItemClick: ((Prescription)-> Unit)? = null
 
     inner class RankingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val tvMedName = itemView.findViewById<TextView>(R.id.tv_med_name)
-        val fabDelete = itemView.findViewById<FloatingActionButton>(R.id.fab_delete)
-        val tvDuration = itemView.findViewById<TextView>(R.id.tv_duration)
-        val doseList = itemView.findViewById<RecyclerView>(R.id.rv_doses)
+        private val tvMedName = itemView.findViewById<TextView>(R.id.tv_med_name)
+        private val fabDelete = itemView.findViewById<FloatingActionButton>(R.id.fab_delete)
+        private val tvDuration = itemView.findViewById<TextView>(R.id.tv_duration)
+        private val rvDoses = itemView.findViewById<RecyclerView>(R.id.rv_doses)
 
         // click medicine
         init{
             itemView.setOnClickListener{
-                onItemClick?.invoke(register[adapterPosition])
+                onItemClick?.invoke(MedList[adapterPosition])
             }
         }
 
@@ -38,14 +39,27 @@ class PrescriptionAdapter (
 
             // show doses
             val doseAdapter = DoseAdapter(mutableListOf())
-            doseList.adapter = doseAdapter
-            doseList.layoutManager = LinearLayoutManager(itemView.context)
+            rvDoses.apply {
+                adapter = doseAdapter
+                layoutManager = LinearLayoutManager(itemView.context)
+            }
 
             for(dose in prescription.dosages) {
                 doseAdapter.addDose(dose)
             }
 
             doseAdapter.onItemClick = {dose -> onDoseClick(dose)}
+
+            // Delete dose on swipe
+            val swipeToDeleteCallback = object: SwipeToDeleteCallback(){
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                    val position = viewHolder.adapterPosition
+                    doseAdapter.removeDose(position, rvDoses.context)
+                }
+            }
+
+            val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallback)
+            itemTouchHelper.attachToRecyclerView(rvDoses)
 
             // delete prescription
             fabDelete.setOnClickListener(){
@@ -63,25 +77,26 @@ class PrescriptionAdapter (
 
     fun addMed(prescription: Prescription) {
         // add med to list
-        register.add(prescription)
+        MedList.add(prescription)
         notifyDataSetChanged()
     }
 
     fun removeMed(prescription: Prescription, context: Context) {
         // remove med from list and db
-        Log.d("debug", register.toString())
-        register.remove(prescription)
+        Log.d("debug", MedList.toString())
+        MedList.remove(prescription)
         val dbHelper = DBHelper(context)
         dbHelper.deletePrescription(prescription.id)
         notifyDataSetChanged()
     }
 
     override fun onBindViewHolder(holder: RankingViewHolder, position: Int) {
-        val prescription = register[position]
+        val prescription = MedList[position]
         holder.bind(prescription)
     }
 
     override fun getItemCount(): Int {
-        return register.size
+        return MedList.size
     }
 }
+
