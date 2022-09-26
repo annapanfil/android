@@ -11,7 +11,9 @@ class Dose(
 class Medicine (
     var id: Int,
     var name: String = "Med name"
-)
+){
+    override fun toString(): String = name
+}
 
 class Patient(
     var pesel: String,
@@ -29,9 +31,10 @@ class Prescription(
 )
 
 class PrescriptionDB(
-    var id: Int,
     var patient_pesel: String,
     var medicine: Int,
     var date_from: String,
     var date_to: String,
+    var quantity: Int,
+    var presr_code: Int
 )

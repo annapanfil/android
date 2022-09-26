@@ -34,6 +34,7 @@ class DBHelper(context: Context): SQLiteOpenHelper(context,DATABASE_NAME,
         private const val COL_MED = "medicine"
         private const val COL_FROM = "date_from"
         private const val COL_TO = "date_to"
+        private const val COL_CODE = "prescription_code"
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
@@ -66,7 +67,10 @@ class DBHelper(context: Context): SQLiteOpenHelper(context,DATABASE_NAME,
                 "$COL_MED INTEGER," +
                 "$COL_PATIENT TEXT, " +
                 "$COL_FROM TEXT," +
-                "$COL_TO TEXT)")
+                "$COL_TO TEXT," +
+                "$COL_QUANT INTEGER," +
+                "$COL_CODE INTEGER" +
+                ")")
         db.execSQL(createTableQuery)
         Log.d("debug", "created")
     }
@@ -107,7 +111,6 @@ class DBHelper(context: Context): SQLiteOpenHelper(context,DATABASE_NAME,
     fun insertMed(med: Medicine) {
         val db = this.writableDatabase
         val values = ContentValues()
-        values.put(COL_ID, med.id)
         values.put(COL_NAME, med.name)
 
         db.insertWithOnConflict(TABLE_MEDICINES, null, values, SQLiteDatabase.CONFLICT_IGNORE)
@@ -117,8 +120,8 @@ class DBHelper(context: Context): SQLiteOpenHelper(context,DATABASE_NAME,
     fun insertDose(prescr: Int, dose: Dose) {
         val db = this.writableDatabase
         val values = ContentValues()
+
         values.put(COL_PRESCRIPTION, prescr)
-        values.put(COL_ID, dose.id)
         values.put(COL_HOUR, dose.hour)
         values.put(COL_NOTES, dose.notes)
         values.put(COL_QUANT, dose.quantity)
@@ -131,11 +134,12 @@ class DBHelper(context: Context): SQLiteOpenHelper(context,DATABASE_NAME,
     fun insertPrescription(prescr: PrescriptionDB) {
         val db = this.writableDatabase
         val values = ContentValues()
-        values.put(COL_ID, prescr.id)
         values.put(COL_PATIENT, prescr.patient_pesel)
         values.put(COL_MED, prescr.medicine)
         values.put(COL_FROM, prescr.date_from)
         values.put(COL_TO, prescr.date_to)
+        values.put(COL_QUANT, prescr.quantity)
+        values.put(COL_CODE, prescr.presr_code)
 
         db.insertWithOnConflict(TABLE_PRESCRIPTIONS, null, values, SQLiteDatabase.CONFLICT_IGNORE)
         db.close()
@@ -187,7 +191,29 @@ class DBHelper(context: Context): SQLiteOpenHelper(context,DATABASE_NAME,
         return patient
     }
 
-    fun getMeds(pesel: String): ArrayList<Prescription> {
+    fun getAllMeds(): ArrayList<Medicine> {
+        val selectQuery = "SELECT * FROM $TABLE_MEDICINES"
+
+        val meds = ArrayList<Medicine>()
+
+        val db = this.writableDatabase
+        val cursor = db.rawQuery(selectQuery, null)
+
+        if (cursor.moveToFirst()) {
+            do{
+                meds.add(
+                    Medicine(
+                        cursor.getInt(cursor.getColumnIndexOrThrow(COL_ID)),
+                        cursor.getString(cursor.getColumnIndexOrThrow(COL_NAME))
+                    )
+                )
+            }while(cursor.moveToNext())
+        }
+        cursor.close()
+        return meds
+    }
+
+        fun getMeds(pesel: String): ArrayList<Prescription> {
         var selectQuery =
             "SELECT $TABLE_MEDICINES.$COL_ID, $COL_NAME FROM $TABLE_MEDICINES JOIN $TABLE_PRESCRIPTIONS ON $TABLE_MEDICINES.$COL_ID = $TABLE_PRESCRIPTIONS.$COL_MED WHERE $COL_PATIENT = \"$pesel\""
 
@@ -209,6 +235,7 @@ class DBHelper(context: Context): SQLiteOpenHelper(context,DATABASE_NAME,
         }
         cursor.close()
 
+        Log.d("debug", meds.toString())
         for (med in meds) {
             val doses = ArrayList<Dose>()
             selectQuery = "SELECT * FROM $TABLE_DOSES JOIN $TABLE_PRESCRIPTIONS ON ${TABLE_DOSES}.${COL_PRESCRIPTION} = ${TABLE_PRESCRIPTIONS}.${COL_ID} WHERE $COL_PATIENT = \"$pesel\" AND $COL_MED = ${med.id}"
@@ -222,7 +249,6 @@ class DBHelper(context: Context): SQLiteOpenHelper(context,DATABASE_NAME,
                 id = cursor.getInt(cursor.getColumnIndexOrThrow(COL_ID))
                 dateFrom = cursor.getString(cursor.getColumnIndexOrThrow(COL_FROM))
                 dateTo = cursor.getString(cursor.getColumnIndexOrThrow(COL_TO))
-                Log.d("debug", "jest 1")
                 do{
                     doses.add(
                         Dose(
@@ -234,6 +260,7 @@ class DBHelper(context: Context): SQLiteOpenHelper(context,DATABASE_NAME,
                         )
                     )
                 }while(cursor.moveToNext())
+                Log.d("doses", doses.toString())
             }
             prescriptions.add(Prescription(
                 id, med.name, dateFrom, dateTo, doses)
@@ -242,6 +269,7 @@ class DBHelper(context: Context): SQLiteOpenHelper(context,DATABASE_NAME,
         }
 
         db.close()
+        Log.d("debug", "return prescr" + prescriptions.toString())
         return prescriptions
     }
 

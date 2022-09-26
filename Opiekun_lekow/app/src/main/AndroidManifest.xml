@@ -17,7 +17,7 @@
             android:name=".ActivityAddMed"
             android:exported="false" />
         <activity
-            android:name=".PatientCard"
+            android:name=".ActivityPatientCard"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

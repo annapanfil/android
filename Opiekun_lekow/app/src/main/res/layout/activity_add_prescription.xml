@@ -10,7 +10,6 @@
     android:background="@color/OLDark">
 
     <TextView
-        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/title_add_med_to_list"
@@ -21,15 +20,31 @@
         android:layout_marginBottom="@dimen/margin"
         />
 
-    <!-- https://stackoverflow.com/questions/37019941/how-to-add-a-hint-in-spinner-in-xml   -->
-    <Spinner
-        android:id="@+id/s_name"
-        android:layout_width="wrap_content"
-        android:minWidth="120dp"
-        android:minHeight="30dp"
-        android:prompt="@string/med_name"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/marginSmall"/>
+        android:orientation="horizontal"
+        android:layout_marginBottom = "@dimen/margin">
+        <TextView
+            android:id="@+id/tv_pesel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pesel"
+            android:textColor="@color/lightText"/>
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"/>
+
+        <TextView
+            android:id="@+id/tv_patient"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/patient"
+            android:layout_gravity="end"
+            android:textColor="@color/lightText" />
+    </LinearLayout>
+
 
     <TableLayout
         android:layout_width="match_parent"
@@ -40,7 +55,34 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:text = "@string/medicine"
+                android:textColor="@color/lightText"/>
+
+            <Spinner
+                android:id="@+id/s_medicine"
+                android:layout_width="wrap_content"
+                android:minWidth="120dp"
+                android:minHeight="30dp"
+                android:prompt="@string/med_name"
+                android:textColor="@color/lightText"
+
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+            <!-- https://stackoverflow.com/questions/37019941/how-to-add-a-hint-in-spinner-in-xml   -->
+
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
@@ -53,6 +95,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:textColor="@color/lightText"
                 android:inputType="numberDecimal"
                 android:hint="@string/pack_quant"
                 android:layout_weight="1"/>
@@ -63,31 +106,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:text="@string/patient"
-                android:textColor="@color/lightText"/>
-
-
-            <EditText
-                android:id="@+id/et_patient_name"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="numberDecimal"
-                android:hint="@string/patient_name"
-                android:layout_weight="1"/>
-        </TableRow>
-
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
@@ -96,13 +115,58 @@
 
 
             <EditText
-                android:id="@+id/et_rp_nr"
+                android:id="@+id/et_prescr_nr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:textColor="@color/lightText"
                 android:inputType="numberDecimal"
                 android:hint="@string/rp_nr"
                 android:layout_weight="1"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:text="@string/date_begin"
+                android:textColor="@color/lightText"/>
+
+            <EditText
+                android:id="@+id/et_date_begin"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:textColor="@color/lightText"
+                android:hint="@string/begin_date"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:text="@string/date_end"
+                android:textColor="@color/lightText"/>
+
+            <EditText
+                android:id="@+id/et_date_end"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:textColor="@color/lightText"
+                android:hint="@string/end_date"/>
         </TableRow>
 
     </TableLayout>

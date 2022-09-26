@@ -22,13 +22,16 @@
     <string name="doses">Dawki</string>
     <string name="cancel">anuluj</string>
     <string name="add_dos">dodaj dawkę</string>
-    <string name="begin_date">Data rozpoczęcia przyjmowania leku</string>
-    <string name="end_date">Data zakończenia przyjmowania leku</string>
+    <string name="begin_date">Rozpoczęcie przyjmowania</string>
+    <string name="end_date">Zakończenie przyjmowania</string>
     <string name="quantity">Ilość</string>
     <string name="pack_quant">Ilość opakowań leku</string>
     <string name="patient_name">Nazwisko pacjenta</string>
     <string name="patient">Pacjent</string>
-    <string name="rp_nr">Numer recepty</string>
-    <string name="title_add_med_to_list">Dodaj lek do listy</string>
+    <string name="rp_nr">Kod e-recepty</string>
+    <string name="title_add_med_to_list">Dodaj receptę</string>
+    <string name="medicine">Lek</string>
+    <string name="date_begin">data rozpoczęcia</string>
+    <string name="date_end">data zakończenia</string>
 
 </resources>
