@@ -30,7 +30,6 @@
 <!--                android:tooltipText="skanuj kod qr"-->
 <!--                app:srcCompat="@drawable/qr_code" />-->
 
-
             <Button
                 android:id="@+id/button"
                 android:layout_width="match_parent"
@@ -39,13 +38,6 @@
                 android:drawableTop="@drawable/ic_launcher_foreground"
                 android:text="@string/scan_qr_code"
                 android:textColor="@color/OLDark" />
-
-            <Button
-                android:id="@+id/buttonDB"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/med_list"
-                android:textColor="@color/OLDark"/>
 
         </LinearLayout>
 

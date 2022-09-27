@@ -71,13 +71,12 @@ class ActivityPatientCard : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_patient_card)
 
-//        val userId = intent.getIntExtra("id", -3)
-//        val userName = intent.getStringExtra("name")
+        pesel = intent.getStringExtra("pesel")!!
         insertData(this)
 
-        // determine patient
-        val patients = dbHelper.getPatients()
-        pesel = patients[0].pesel
+//        // determine patient
+//        val patients = dbHelper.getPatients()
+//        pesel = patients[0].pesel
 
         // get patient data from db
         val patient = dbHelper.getPatientByPesel(pesel)!!
