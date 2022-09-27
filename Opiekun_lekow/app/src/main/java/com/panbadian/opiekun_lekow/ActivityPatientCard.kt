@@ -15,25 +15,25 @@ private lateinit var prescriptionAdapter: PrescriptionAdapter
 fun insertData(context: Context){
     val dbHelper = DBHelper(context)
     dbHelper.update()
-    dbHelper.insertPatient(Patient("01234567890", "Leonardo", "Da Vinci", "15.07.1888"))
-    dbHelper.insertPatient(Patient("12345678900", "Ezzio", "Auditore", "15.07.1888"))
+    dbHelper.insertPatient(Patient("52041512345", "Leonardo", "Da Vinci", " 15.04.1452"))
+    dbHelper.insertPatient(Patient("75030678900", "Michał", "Anioł", "06.03.1475"))
 
-    dbHelper.insertMed(Medicine(0, "Skyn Elite"))
-    dbHelper.insertMed(Medicine(1, "Piwo"))
-    dbHelper.insertMed(Medicine(2, "Medyczna marihuana"))
+    dbHelper.insertMed(Medicine(0, "Ibuprofen"))
+    dbHelper.insertMed(Medicine(1, "Hascovir"))
+    dbHelper.insertMed(Medicine(2, "Amotaks"))
 
-    dbHelper.insertPrescription(PrescriptionDB("01234567890",1, "15.01.2022", "12.06.2023", 15, 1245))
-    dbHelper.insertPrescription(PrescriptionDB("01234567890",2, "15.01.2022", "12.06.2024", 4, 2323))
-    dbHelper.insertPrescription(PrescriptionDB("01234567890",3, "15.01.2022", "12.06.2025", 75, 6666))
+    dbHelper.insertPrescription(PrescriptionDB("52041512345",1, "15.01.2022", "25.01.2021", 15, 1245))
+    dbHelper.insertPrescription(PrescriptionDB("52041512345",2, "25.12.2022", "25.06.2022", 5, 2323))
+    dbHelper.insertPrescription(PrescriptionDB("52041512345",3, "13.01.2022", "13.03.2022", 11, 6666))
 
-    dbHelper.insertDose(1, Dose(0,"8:00", 4.0, "Od razu po przebudzeniu", true))
-    dbHelper.insertDose(1, Dose(1, "15:00", 2.0, "Podaje tylko pielęgniarz ;)", false))
-    dbHelper.insertDose(1, Dose(2, "12:00", 4.0, "-", true))
-    dbHelper.insertDose(2, Dose(3, "13:00", 2.0, "Można więcej", false))
-    dbHelper.insertDose(2, Dose(4, "14:00", 3.0, "Można więcej", false))
-    dbHelper.insertDose(2, Dose(5, "15:00", 15.0, "Można więcej", false))
-    dbHelper.insertDose(3, Dose(6, "8:00", 4.0, "-", true))
-    dbHelper.insertDose(3, Dose(7, "10:00", 15.0, "Z plasterkiem cytryny", false))
+    dbHelper.insertDose(1, Dose(0,"8:00", 1.0, "W trakcie posiłku", true))
+    dbHelper.insertDose(1, Dose(1, "12:00", 1.0, "Popijać wodą", false))
+    dbHelper.insertDose(1, Dose(2, "15:00", 1.0, "-", true))
+    dbHelper.insertDose(2, Dose(3, "7:00", 2.0, "Doustnie", false))
+    dbHelper.insertDose(2, Dose(4, "15:00", 1.0, "j.w.", false))
+    dbHelper.insertDose(2, Dose(5, "22:00", 1.5, "j.w.", false))
+    dbHelper.insertDose(3, Dose(6, "6:00", 4.0, "Na czczo", true))
+    dbHelper.insertDose(3, Dose(7, "18:00", 15.0, "1h po posiłku", false))
 }
 
 class ActivityPatientCard : AppCompatActivity() {
